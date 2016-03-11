@@ -1,0 +1,36 @@
+
+
+def list():
+    segs=db(db.segment.id>0).select()
+    return dict(segs=segs)
+
+def reform():
+    segs=db(db.segment.id>0).select()
+    return dict(segs=segs)
+
+def seg_ed():
+    form = SQLFORM(db.segment,request.args(0))
+    return dict(form=form)
+
+def seged():
+    form = SQLFORM(db.segment,request.args(0))
+    return dict(form=form)
+
+def update_seg():
+    return dict()
+
+def load_seged():
+    return dict()
+
+def listex():
+    form=SQLFORM(db.segment)
+    segs=db(db.segment.id>0).select()
+    return dict(form=form,segs=segs)
+
+def tex():
+    form=SQLFORM(db.segment)
+    segs=db(db.segment.id>0).select()
+    if form.process().accepted:
+        fid=form.vars.id
+        redirect('editex','edit','tex')
+    return dict(form=form,segs=segs)

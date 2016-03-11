@@ -1,0 +1,10 @@
+any login may begin a docset.
+
+first segment is title
+    title's reference is self.
+    title children constitute first problem.
+
+any login can respond to shares.
+    only title author can view responses
+
+all segments reference root segment

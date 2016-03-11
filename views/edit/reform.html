@@ -1,0 +1,46 @@
+{{extend 'layout.html'}}
+  <style>
+      textarea, div {font-size: medium;}
+  span {
+    display: none;
+  }
+      .commit {display:none;}
+  </style>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+{{for seg in segs:}}
+<p>
+    {{=A(seg.body, callback=URL('editex','edit','seged.load',args=[seg.id]),ajax=True)}}
+</p>
+
+{{pass}}
+          <p></p>
+<script>
+    var rid;
+    var seg;
+    var data;
+	$('document').ready(function(){
+		$('.edit').on('click',function(event,ui){
+            seg = $(this).attr('seg');
+			data = $(seg+'partext').text();
+            console.log('data:'+data);
+            rid = $(seg).attr('rid');
+			$(seg+'partext').html("<form><textarea id='texa' cols=60 rows=10>"+data+"</textarea></form>");
+            $(seg+'commit').show();
+            $(this).hide();
+		});
+	});
+$('.commit').on('click',function(event,ui){
+            txtdata = $('#texa').val();
+            $.ajax(
+                    url="{{=URL('editex','update_seg',host=True)}}",
+                    data=txtdata,
+                    method="POST"
+            ).success(function(){
+                        alert('update posted');
+                    });
+            $(seg+'partext').html(txtdata);
+            $(seg+'edit').show();
+            $(this).hide();
+});
+</script>

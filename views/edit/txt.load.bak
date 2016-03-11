@@ -1,0 +1,7 @@
+<div id="txtform">
+{{=form.custom.begin}}
+<textarea id="segment_body" rows="3" cols="40"></textarea>
+<input value="tex" type="hidden" name="segment_category"/>
+{{=form.custom.submit}}
+{{=form.custom.end}}
+	</div>

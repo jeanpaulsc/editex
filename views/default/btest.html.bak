@@ -1,0 +1,25 @@
+{{extend 'layout.html'}}
+The ChickenButt:<textarea></textarea>
+<script>
+tinymce.init({
+  selector: 'textarea',
+  height: 500,
+  toolbar: 'mybuttons',
+  menubar: false,
+  setup: function (editor) {
+	  {{for b in bset:}}
+    editor.addButton('mybuttons', {
+      text: '{{=XML(b)}}',
+      icon: false,
+      onclick: function () {
+        editor.insertContent('{{=XML(b)}}');
+      }
+    });
+	  {{pass}}
+  },
+  content_css: [
+    '//fast.fonts.net/cssapi/e6dc9b99-64fe-4292-ad98-6974f93cd2a2.css',
+    '//www.tinymce.com/css/codepen.min.css'
+  ]
+});
+	</script>

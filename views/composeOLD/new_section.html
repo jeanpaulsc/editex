@@ -1,0 +1,10 @@
+<h2>New Section</h2>
+
+<form enctype="multipart/form-data"
+      action="{{=URL()}}" method="post">
+    Title:
+<input name="title" />
+<input type="submit" />
+</form>
+<h2>Submitted variables</h2>
+{{=BEAUTIFY(request.vars)}}

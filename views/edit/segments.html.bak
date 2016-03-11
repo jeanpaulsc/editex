@@ -1,0 +1,24 @@
+<style>
+	h3, img { margin: auto; }
+</style>
+{{=H3(meta.title)}}
+{{for seg in segs:}}
+<div id="seg{{=seg.id}}" data="seg.id">
+{{if seg.category=='tex':}}
+	{{print 'show tex'}}
+	<p>
+       <img src='http://latex.codecogs.com/latex.gif?'+{{=seg.body}} />
+       {{=A('edit',callback=URL('editex','edit','TeX',args=seg.id),ajax=True)}}
+	</p>
+        {{else:}}
+	{{print 'show txt'}}
+       <p>
+           {{=seg.body}}
+       {{=A('edit',callback=URL('editex','edit','txt',args=seg.id),ajax=True)}}
+           </p>
+   {{pass}}
+{{pass}}
+		 </div>
+<div id="foot">
+{{=LOAD('edit','foot_bar.load',ajax=True)}}
+</div>

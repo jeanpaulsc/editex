@@ -1,0 +1,15 @@
+{{extend 'layout.html'}}
+<script>
+{{i=0}}
+	  {{for b in bset:}}
+    editor.addButton('b{{=i}}', {
+      text: '{{=XML(b)}}',
+      icon: false,
+      onclick: function () {
+        editor.insertContent('{{=XML(b)}}');
+      }
+    });
+{{i=i+1}}
+	  {{pass}}
+</script>
+    <script src="https://cdn.tinymce.com/4/tinymce.min.js"></script>

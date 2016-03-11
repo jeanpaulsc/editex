@@ -1,0 +1,21 @@
+{{extend 'layout.html'}}
+<div id="content">
+<h1>Available Documents</h1>
+{{for row in rows:}}
+	<ul>
+        <li>{{if row.tier:}}
+            <div class="lead_space col-md-{{=row.tier}}"></div>
+          {{pass}}
+            <div class="segframe col-md-{{=(12-row.tier)}}" id="s{{=row.id}}">
+		{{=H4(A(row.title,callback=URL('editex','edit','segments',args=[row.id]),target='content'))}}</li>
+	</ul>
+{{pass}}
+{{if auth.has_membership('pupils'):}}
+<button onclick="new_document()">New Document</button>
+{{pass}}
+</div>
+<script>
+function new_document() {
+    window.open("{{=URL('editex','edit','title_form',host=True)}}");
+}
+</script>

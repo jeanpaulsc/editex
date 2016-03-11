@@ -1,0 +1,154 @@
+<style>.mce-btn-has-text { font-size: 200%}</style>
+<script>tinymce.init({
+  selector: 'segment_body',
+  height: 200,
+  toolbar: 'b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 b10 b11 b12 b13 b14 b15 b16 b17 b18 b19 texlink done',
+  menubar: false,
+  setup: function (editor) {
+	 editor.addButton('b0', {
+      text: '¬',
+      icon: false,
+      onclick: function () {
+        editor.insertContent('¬');
+      }
+    });
+    editor.addButton('b1', {
+      text: '∀',
+      icon: false,
+      onclick: function () {
+        editor.insertContent('∀');
+      }
+    });
+    editor.addButton('b2', {
+      text: '∃',
+      icon: false,
+      onclick: function () {
+        editor.insertContent('∃');
+      }
+    });
+    editor.addButton('b3', {
+      text: '∄',
+      icon: false,
+      onclick: function () {
+        editor.insertContent('∄');
+      }
+    });
+    editor.addButton('b4', {
+      text: '∴',
+      icon: false,
+      onclick: function () {
+        editor.insertContent('∴');
+      }
+    });
+    editor.addButton('b5', {
+      text: '±',
+      icon: false,
+      onclick: function () {
+        editor.insertContent('±');
+      }
+    });
+    editor.addButton('b6', {
+      text: '∙',
+      icon: false,
+      onclick: function () {
+        editor.insertContent('∙');
+      }
+    });
+    editor.addButton('b7', {
+      text: '→',
+      icon: false,
+      onclick: function () {
+        editor.insertContent('→');
+      }
+    });
+    editor.addButton('b8', {
+      text: '↔',
+      icon: false,
+      onclick: function () {
+        editor.insertContent('↔');
+      }
+    });
+    editor.addButton('b9', {
+      text: '÷',
+      icon: false,
+      onclick: function () {
+        editor.insertContent('÷');
+      }
+    });
+	   editor.addButton('b10', {
+      text: '≤',
+      icon: false,
+      onclick: function () {
+        editor.insertContent('≤');
+      }
+    });
+    editor.addButton('b11', {
+      text: '≥',
+      icon: false,
+      onclick: function () {
+        editor.insertContent('≥');
+      }
+    });
+    editor.addButton('b12', {
+      text: '≠',
+      icon: false,
+      onclick: function () {
+        editor.insertContent('≠');
+      }
+    });
+    editor.addButton('b13', {
+      text: '≡',
+      icon: false,
+      onclick: function () {
+        editor.insertContent('≡');
+      }
+    });
+    editor.addButton('b14', {
+      text: '≅',
+      icon: false,
+      onclick: function () {
+        editor.insertContent('≅');
+      }
+    });
+    editor.addButton('b15', {
+      text: '≈',
+      icon: false,
+      onclick: function () {
+        editor.insertContent('≈');
+      }
+    });
+    editor.addButton('b16', {
+      text: '∼',
+      icon: false,
+      onclick: function () {
+        editor.insertContent('∼');
+      }
+    });
+    editor.addButton('b17', {
+      text: '∞',
+      icon: false,
+      onclick: function () {
+        editor.insertContent('∞');
+      }
+    });
+    editor.addButton('texlink', {
+      text: 'TeXedit',
+      icon: false,
+      onclick: function () {
+		  text = textarea.text()
+          open_texedit(text);
+      }
+    });
+    editor.addButton('done', {
+      text: 'Done',
+      icon: false,
+      onclick: function () {
+          save_text();
+      }
+    });
+  },
+  content_css: [
+    '/editex/static/css/tiny.css'
+  ]
+});
+</script>

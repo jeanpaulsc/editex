@@ -1,0 +1,4 @@
+{{=form.custom.begin}}
+        <div>{{=form.custom.widget.body}}</div>
+        {{=form.custom.submit}}
+        {{=form.custom.end}}

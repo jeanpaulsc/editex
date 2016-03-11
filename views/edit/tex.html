@@ -1,0 +1,38 @@
+
+
+<!-- Scripts needed by CodeCogs Equation Editor -->
+<link rel="stylesheet" type="text/css" href="http://latex.codecogs.com/css/equation-embed.css" />
+<script type="text/javascript" src="http://latex.codecogs.com/js/eq_config.js"></script>
+<script type="text/javascript" src="http://latex.codecogs.com/js/eq_editor-lite-18.js"></script>
+
+<style type="text/css">
+#EqnEditor { text-align:left; }
+</style>
+
+        {{for seg in segs:}}
+{{if seg.category=='title':}}
+        {{=H4(seg.body)}}
+        {{elif seg.category=='txt':}}
+       <p>
+           {{=seg.body}}
+           </p>
+{{elif seg.category=='tex':}}
+<p>
+       {{IMG(src='http://latex.codecogs.com/latex.gif?'+seg.body)}}
+       </p> {{=A('edit',URL('editex','edit','change',args=seg.id))}}
+        {{pass}}
+{{pass}}
+
+<div id="editor"></div>
+{{=form.custom.begin}}
+        <div width="800px">{{=form.custom.widget.body}}</div>
+        <input value="tex" type="hidden" name="segment_category" />
+        {{=form.custom.submit}}
+        {{=form.custom.end}}
+<img id="equation" />
+
+<script type="text/javascript">
+EqEditor.embed('editor','');
+var a=new EqTextArea('equation', 'segment_body');
+EqEditor.add(a,false);
+</script>

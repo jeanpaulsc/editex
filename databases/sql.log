@@ -1,0 +1,494 @@
+timestamp: 2016-03-08T05:07:34.756275
+CREATE TABLE auth_user(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    first_name CHAR(128),
+    last_name CHAR(128),
+    email CHAR(512),
+    password CHAR(512),
+    registration_key CHAR(512),
+    reset_password_key CHAR(512),
+    registration_id CHAR(512)
+);
+success!
+timestamp: 2016-03-08T05:07:34.795624
+CREATE TABLE auth_group(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    role CHAR(512),
+    description TEXT
+);
+success!
+timestamp: 2016-03-08T05:07:34.833976
+CREATE TABLE auth_membership(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE,
+    group_id INTEGER REFERENCES auth_group (id) ON DELETE CASCADE
+);
+success!
+timestamp: 2016-03-08T05:07:34.862963
+CREATE TABLE auth_permission(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    group_id INTEGER REFERENCES auth_group (id) ON DELETE CASCADE,
+    name CHAR(512),
+    table_name CHAR(512),
+    record_id INTEGER
+);
+success!
+timestamp: 2016-03-08T05:07:34.918531
+CREATE TABLE auth_event(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    time_stamp TIMESTAMP,
+    client_ip CHAR(512),
+    user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE,
+    origin CHAR(512),
+    description TEXT
+);
+success!
+timestamp: 2016-03-08T05:07:34.930243
+CREATE TABLE auth_cas(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE,
+    created_on TIMESTAMP,
+    service CHAR(512),
+    ticket CHAR(512),
+    renew CHAR(1)
+);
+success!
+timestamp: 2016-03-08T05:07:34.962024
+CREATE TABLE meta(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title CHAR(512),
+    reference_to CHAR(512),
+    created_by CHAR(512),
+    reviewed_by CHAR(512),
+    creation_date CHAR(512),
+    doc_state CHAR(512)
+);
+success!
+timestamp: 2016-03-08T05:07:34.971182
+CREATE TABLE segment(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    body TEXT,
+    category CHAR(512),
+    meta_id CHAR(512),
+    tier INTEGER,
+    root INTEGER,
+    parent CHAR(512),
+    pos DOUBLE,
+    image CHAR(512),
+    status CHAR(512),
+    owned_by CHAR(512)
+);
+success!
+timestamp: 2016-03-08T05:07:34.980133
+CREATE TABLE msg(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    recipient CHAR(512),
+    reply_to CHAR(512),
+    subject CHAR(512),
+    body TEXT,
+    created CHAR(512)
+);
+success!
+timestamp: 2016-03-08T05:07:34.987922
+CREATE TABLE image(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title CHAR(512) UNIQUE,
+    image CHAR(512)
+);
+success!
+timestamp: 2016-03-08T05:07:34.996172
+CREATE TABLE post(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    image_id INTEGER REFERENCES image (id) ON DELETE CASCADE,
+    author CHAR(512),
+    email CHAR(512),
+    body TEXT
+);
+success!
+timestamp: 2016-03-08T21:18:02.686338
+ALTER TABLE segment ADD lclass CHAR(512);
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+timestamp: 2016-03-10T20:58:49.031354
+ALTER TABLE segment ADD time_of CHAR(512);
+timestamp: 2016-03-10T20:58:49.042256
+ALTER TABLE segment ADD paren_id CHAR(512);
+timestamp: 2016-03-10T20:58:49.043389
+ALTER TABLE segment ADD segnum CHAR(512);
+timestamp: 2016-03-10T20:58:49.044534
+ALTER TABLE segment ADD auth_id CHAR(512);
+success!
+timestamp: 2016-03-10T20:58:49.049900
+CREATE TABLE activity(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    time_of CHAR(512),
+    auth_id CHAR(512),
+    segment_id CHAR(512),
+    subject CHAR(512)
+);
+success!
+success!
+success!
+success!
+timestamp: 2016-03-10T21:02:26.719342
+ALTER TABLE segment ADD parent_id CHAR(512);
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!

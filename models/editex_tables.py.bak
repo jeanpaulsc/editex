@@ -1,0 +1,38 @@
+from datetime import datetime
+
+db.define_table('meta',
+	            Field('title','string'),
+                Field('reference_to','string'),
+	            Field('created_by',default=auth.user_id),
+	            Field('reviewed_by',default=None),
+	            Field('creation_date',default=datetime.now()),
+	            Field('doc_state',default='draft'))
+
+db.define_table('segment',
+                Field('body','text'),
+                Field('category','string',default=(session.seg_cat or 'txt')),
+	            Field('meta_id','reference meta',default=session.cur_meta_id))
+
+db.define_table('msg',
+	            Field('recipient','string'),
+	            Field('reply_to','string'),
+                Field('subject','string'),
+	            Field('body','text'),
+	            Field('created',default=datetime.now()))
+
+buttonset = ['¬','∀','∃','∄','∧','∨','∴','+','−','±','×','∗','÷','∙','√','∞','∏','∑','←','→','↔','⇐','⇒','⇔','…','―','(',')','[',']','{','}','⎡','⎤','⎣','⎦','∝','∩','∪','⊂','⊄','⊃','⊅','⊆','⊇','∈','∉','∋','∍','∅','⊕','⊗']
+
+db.segment.id.readable=db.segment.id.writable=False
+db.segment.meta_id.readable=db.segment.meta_id.writable=False
+db.segment.category.readable=db.segment.category.writable=False
+db.msg.recipient.readable=True
+db.msg.recipient.writable=False
+db.msg.reply_to.readable=True
+db.msg.reply_to.writable=False
+db.msg.subject.readable=True
+db.msg.subject.writable=False
+db.msg.created.readable=db.msg.created.writable=False
+db.segment.category.readable=db.segment.category.writable=False
+db.segment.meta_id.readable=db.segment.meta_id.writable=False
+db.meta.creation_date.readable=db.meta.creation_date.writable=False
+db.meta.doc_state.readable=db.meta.doc_state.writable=False

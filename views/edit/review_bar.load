@@ -1,0 +1,21 @@
+<button type='button' id="txt">
+	New Text
+</button>
+<button type='button' id="tex">
+	New LaTeX
+</button>
+<button type='button' id="return_submission">
+	Return Submission
+</button>
+
+<script>
+    $('#txt').onclick(function(){
+        ajax('{{=URL('edit','txt.load')}}',target='foot');
+    }
+    $('#tex').onclick(function(){
+        ajax('{{=URL('edit','TeX.load')}}',target='foot');
+    }
+    $('#return_submission').onclick(function(){
+        ajax('{{=URL('edit','return_submission.load)}}',target='content');
+    }
+</script>

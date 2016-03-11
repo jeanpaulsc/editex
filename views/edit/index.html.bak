@@ -1,0 +1,10 @@
+{{extend 'layout.html'}}
+<h1>Available Documents</h1>
+{{for row in rows:}}
+	<ul>
+		<li>{{=H4(A(meta.title,URL('editex','edit','segments',args=[meta.id]))}}</li>
+	</ul>
+{{pass}}
+{{if auth.has_membership('pupil'):}}
+<button id='new_doc' href="{{=URL('editex','edit','new_document',host=True)}}>New Document</button>
+{{pass}}

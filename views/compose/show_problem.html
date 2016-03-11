@@ -1,0 +1,36 @@
+{{extend 'layout.html'}}
+        {{rid=''}}
+   <div class="author">
+     {{for row in rows:}}
+
+       {{if not session.cur_owner==row.auth_id:}}  <!-- first or changing div -->
+
+         {{if session.cur_owner:}}  <!-- continuance, close current -->
+           </div>
+         {{else:}}
+           {{session.cur_owner=row.auth_id}}
+         {{pass}}
+
+          {{if row.auth_id==auth.user_id:}}
+             <div class="mine">
+          {{else:}}
+              <div class="others">
+          {{pass}}
+
+       {{pass}}
+
+          {{if row.category=='txt':}}
+             {{=XML(row.body)}}
+           {{elif row.category=='tex':}}
+	        <p>
+                 <img src='http://latex.codecogs.com/gif.latex?{{=row.body}}'    />
+	        </p>
+           {{else:}}
+                  <p>
+                 <img src='{{URL('download',args=row.image)}}'    />
+	        </p>
+          {{pass}}
+          {{rid=row.id}}
+        {{pass}}
+        </div><br>
+          {{=A(XML('<button>append</button>'),callback=URL('compose','append_txt',args=rid))}}

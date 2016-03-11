@@ -1,0 +1,84 @@
+{{extend 'layout.html'}}
+<textarea id ="target"></textarea>
+<script>
+tinymce.init({
+  selector: 'textarea',
+  height: 500,
+  toolbar: 'b0 b1 b2 b3 b4 b5 b6 b7 b8 b9',
+  menubar: false,
+  setup: function (editor) {
+	 editor.addButton('b0', {
+      text: '¬',
+      icon: false,
+      onclick: function () {
+        editor.insertContent('¬');
+      }
+    });
+    editor.addButton('b1', {
+      text: '∀',
+      icon: false,
+      onclick: function () {
+        editor.insertContent('∀');
+      }
+    });
+    editor.addButton('b2', {
+      text: '∃',
+      icon: false,
+      onclick: function () {
+        editor.insertContent('∃');
+      }
+    });
+    editor.addButton('b3', {
+      text: '∄',
+      icon: false,
+      onclick: function () {
+        editor.insertContent('∄');
+      }
+    });
+    editor.addButton('b4', {
+      text: '∴',
+      icon: false,
+      onclick: function () {
+        editor.insertContent('∴');
+      }
+    });
+    editor.addButton('b5', {
+      text: '±',
+      icon: false,
+      onclick: function () {
+        editor.insertContent('±');
+      }
+    });
+    editor.addButton('b6', {
+      text: '∙',
+      icon: false,
+      onclick: function () {
+        editor.insertContent('∙');
+      }
+    });
+    editor.addButton('b7', {
+      text: '→',
+      icon: false,
+      onclick: function () {
+        editor.insertContent('→');
+      }
+    });
+    editor.addButton('b8', {
+      text: '↔',
+      icon: false,
+      onclick: function () {
+        editor.insertContent('↔');
+      }
+    });
+    editor.addButton('b9', {
+      text: '¬',
+      icon: false,
+      onclick: function () {
+        editor.insertContent('¬');
+      }
+    });
+  },
+  content_css:
+    ["{{=URL('static','css/tiny.css')}}"]
+});
+</script>

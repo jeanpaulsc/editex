@@ -1,0 +1,9 @@
+<button type='button' onclick="ajax('{{=URL('edit','txt.load')}}',['target'],'foot')"  id="txt">
+	New Text
+</button>
+<button type='button' onclick="ajax('{{=URL('edit','segtex')}}',['target'],'content')" id="tex">
+	New LaTeX
+</button>
+<button type='button' onclick="ajax('{{=URL('edit','submit_document.load')}}',['target'],'content')" id="submit">
+	Submit
+</button>

@@ -1,0 +1,12 @@
+<div id="toolbar"></div>
+{{=form.custom.begin}}
+<textarea id="segment_body" rows="3" cols="40"></textarea>
+<img id="equation" align="middle" />
+<input value="tex" type="hidden" name="segment_category"/>
+{{=form.custom.submit}}
+{{=form.custom.end}}
+
+<script type="text/javascript">
+  EqEditor.embed(toolbar);
+  EqEditor.add(new EqTextArea('equation', 'segment_body'),false);
+</script>

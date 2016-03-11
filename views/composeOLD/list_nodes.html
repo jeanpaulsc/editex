@@ -1,0 +1,60 @@
+
+<style>
+    .segframe {
+        margin: 10px 10px 10px 10px;
+        border: 1px solid black;
+        width: 100%;
+        overflow: hidden;
+    }
+    .vis {
+        display: hidden;
+    }
+    .clearfx {
+        clear: both;
+    }
+    .lead_space {
+        border: 1px dotted red;
+        width: 100%;
+        overflow: hidden;
+    }
+</style>
+{{if len(rows)>0:}}
+{{for row in rows:}}
+        {{if row.category=='title':}}
+            <a2>{{=row.body}}</a2>
+        {{else:}}
+        <div class="col-md-12" style="clear:both;"></div>
+        {{lspace = row.tier * 4}}
+        <span class='lead_space' id="{{=row.id}}">{{=A(XML("<button class='outdent'>←</button>"),
+        callback=URL('compose','outdent.load',args=row.id),ajax=True,ajax_trap=True,target=row.id)}}
+            <img src="/editex/static/images/onepix.png" width='{{=row.tier*4}}%' height="1px"/>
+        {{=A(XML("<button class='indent'>→</button>"), callback=URL('compose','indent',args=row.id),
+        ajax=True,ajax_trap=True,target=row.id)}}</span>
+       <span class='segframe col-md-{{=(12 - (row.tier or 0))}}' id="row.pos" tier={{=row.tier}}>
+       {{if row.category=='tex':}}
+    	{{print    'show    tex'}}
+	    <p>
+        <img    src='http://latex.codecogs.com/gif.latex?{{=row.body}}'    />
+    	</p>
+        {{else:}}
+    	{{print    'show    txt'}}
+        {{=row.body}}
+
+
+       {{pass}}
+           </span><span>
+       {{=A(XML('<button>edit</button>'),callback=URL('compose','edit',args=row.id))}}
+       {{=A(XML('<button>insert</button>'),callback=URL('compose','insert.load',args=row.id))}}
+       {{=A(XML('<button>append</button>'),callback=URL('compose','append',args=row.id))}}
+       {{=A(XML('<button>delete</button>'),callback=URL('compose','delete',args=row.id))}}</span>
+{{pass}}
+{{pass}}
+{{pass}}        <br>        {{=A(XML('<button>append</button>'),callback=URL('compose','append',args=session.cur_root))}}
+
+{{=LOAD('compose','insert')}}
+
+<script>
+    $('#hide').on('click', function(event,ui){
+       $('.lead_space').hide()ad;
+    });
+</script>

@@ -1,0 +1,55 @@
+<style type="text/css">
+    #editor_background {background-color:lightyellow;border: 1px solid beige;margin:auto;padding:20px;}
+     #frame {padding:80px;}
+	img { margin: 10px 40px; }
+    a { font-size: small;display:inline;}
+</style>
+        <div id="frame">
+{{for seg in segs:}}
+        {{if seg.cat=='title':}}
+    print 'seg title'
+    <div class="title">
+  {{=post.created_on}} {{=post.created_by.first_name}}
+      <p>
+  {{=seg.body}}
+  </p>
+    {{pass}}
+          {{if seg.cat=='title':}}
+    print 'seg title'
+    <div class="title">
+  {{=post.created_on}} {{=post.created_by.first_name}}
+      <p>
+  <img _src="{{=URL('download',args=seg.image)}}">
+  </p></div>
+    {{pass}}
+        {{print 'seg.id: ',seg.id, ' seg2edit: ',seg2edit}}
+        {{if seg.id==seg2edit:}}
+        {{print 'True'}}
+        <!--begin txt editor -->
+{{=form}}
+        <!-- end -->
+        {{else:}}
+<div id="seg{{=seg.id}}" data=seg.id>
+{{if seg.category=='tex':}}
+	{{print 'show tex'}}
+	<p>
+       <img src='http://latex.codecogs.com/gif.latex?{{=seg.body}}' />
+	</p>
+        {{else:}}
+	{{print 'show txt'}}
+       <p>
+           {{=seg.body}}
+           </p>
+   {{pass}}
+    </div>
+{{pass}}
+		 </div>
+        {{pass}}
+<div id="foot">
+{{if seg2edit==0:}}
+        <!--begin new txt -->
+{{=form}}
+        <!-- end -->
+{{pass}}
+</div>
+</div>

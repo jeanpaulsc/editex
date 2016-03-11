@@ -1,0 +1,8 @@
+This web2py app is for the purpose of mathimatical collaboration,
+particularly of a tutorial nature.
+
+A user should be able to enter math formulae from text or LaTeX GUI
+
+A student can then solve these problems which would alert turor.
+
+Tutor receives an email or SMS and can then critique student work,

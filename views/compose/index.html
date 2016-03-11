@@ -1,0 +1,8 @@
+{{extend 'layout.html'}}
+
+{{for row in rows:}}
+        {{=A(XML(row.body),_href=URL('compose','show_problem',args=row.id))}}
+        {{pass}}
+        <div id="target"></div>
+        <br>
+        {{=A(XML('<button>new problem</button>'),callback=URL('compose','new_problem.load'),ajax=True,ajax_trap=True,target='target')}}

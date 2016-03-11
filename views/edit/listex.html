@@ -1,0 +1,38 @@
+
+{{block head}}
+<link rel="stylesheet" type="text/css"
+  href="http://latex.codecogs.com/css/equation-embed.css" />
+<!--[if lte IE 7]>
+<link rel="stylesheet" href="http://latex.codecogs.com/css/ie6.css" type="text/css"/>
+<![endif]-->
+<script type="text/javascript"
+  src="http://latex.codecogs.com/js/eq_config.js" ></script>
+<script type="text/javascript"
+  src="http://latex.codecogs.com/js/eq_editor-lite-18.js" ></script>
+        {{end}}
+{{for seg in segs:}}
+{{if seg.category=='title':}}
+        {{=H4(seg.body)}}
+        {{elif seg.category=='txt':}}
+       <p>
+           {{=seg.body}}
+           </p>
+{{elif seg.category=='tex':}}
+<p>
+       {{IMG(src='http://latex.codecogs.com/latex.gif?'+seg.body)}}
+       </p> {{=A('edit',URL('editex','edit','change',args=seg.id))}}
+        {{pass}}
+{{pass}}
+<div id="toolbar"></div>
+<textarea id="latexInput" rows="3" cols="40"></textarea>
+<img id="equation" align="middle" />
+
+<script type="text/javascript">
+  EqEditor.embed(toolbar);
+  EqEditor.add(new EqTextArea('equation', 'latexInput'),false);
+</script>
+
+{{=form.custom.begin}}
+        <div>{{=form.custom.widget.body}}</div>
+        {{=form.custom.submit}}
+        {{=form.custom.end}}

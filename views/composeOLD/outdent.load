@@ -1,0 +1,5 @@
+{{=A(XML("<button class='outdent'>←</button>"),
+        callback=URL('compose','outdent',args=id),ajax=True,target=id)}}
+            <img src="/editex/static/images/onepix.png" width='{{=tier*4}}%' height="1px"/>
+        {{=A(XML("<button class='indent'>→</button>"), callback=URL('compose','indent',args=id),
+        ajax=True,target=id)}}

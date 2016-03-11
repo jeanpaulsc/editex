@@ -1,0 +1,36 @@
+<style>
+    #frame {padding:80px;}
+	img { margin: 10px 40px; }
+    a { font-size: small;display:inline;}
+</style>
+        <div id="frame">
+{{=H3(meta.title)}}
+{{for seg in segs:}}
+<div id="seg{{=seg.id}}" data="seg.id">
+{{if seg.category=='tex':}}
+	{{print 'show tex'}}
+	<p>
+       <img src='http://latex.codecogs.com/gif.latex?{{=seg.body}}' />
+        <!--button type='button' onclick="window.load('{{=URL('edit','segtex',args=[seg.id])}}')">edit</button-->
+     {{if meta.doc_state=='draft':}}
+        &nbsp;&nbsp;<a href={{=URL('edit','segtex',args=[seg.id])}}>edit</a>
+	 {{pass}}
+    </p>
+        {{else:}}
+	{{print 'show txt'}}
+       <p>
+           {{=seg.body}}
+     {{if meta.doc_state=='draft':}}
+       &nbsp;&nbsp;<a href={{=URL('edit','segtxt',args=[seg.id])}}>edit</a>
+     {{pass}}
+           </p>
+   {{pass}}
+{{pass}}
+		 </div>
+        <br><br>
+<div id="foot">
+{{=A('New Text',_href=URL('edit','segtxt'))}}&nbsp;&nbsp;&nbsp;
+{{=A('New LaTeX',_href=URL('edit','segtex'))}}&nbsp;&nbsp;&nbsp;
+{{=A('Commit',_href=URL('edit','commit_document'))}}
+</div>
+            </div>
