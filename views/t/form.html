@@ -1,0 +1,17 @@
+{{extend 'layout.html'}}
+<form action="#" enctype="multipart/form-data" method="post">
+    <fieldset>
+        <div id="myform_body__row">
+            <div class="w2p_fl"><label for="myform_body" id="myform_body__label"></label></div>
+            <div class="w2p_fw"><textarea class="text" cols="40" id="myform_body" name="body" rows="10"></textarea>
+            </div>
+            <div class="w2p_fc"></div>
+        </div>
+        <div id="submit_record__row">
+            <div class="w2p_fl"></div>
+            <div class="w2p_fw"><input type="submit" value="Submit" class="btn btn-default"></div>
+            <div class="w2p_fc"></div>
+        </div>
+    </fieldset>
+    <div style="display:none;"><input name="_formname" type="hidden" value="myform/create"></div>
+</form>

@@ -1,0 +1,13 @@
+{{extend 'layout.html'}}
+<style>
+    input#q {width:90%;}
+</style>
+<div id="target">
+    {{=table}}
+</div>
+
+<form>
+<INPUT type="text" id="q" name = "q" value="web2py"/>
+<INPUT type="button" value="submit"
+       onclick="ajax('{{=URL('data')}}',['q'],'target');"/>
+</form>

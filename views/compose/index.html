@@ -1,8 +1,12 @@
 {{extend 'layout.html'}}
-
+{{=H2('Available Sections:')}}
+        <ol>
 {{for row in rows:}}
-        {{=A(XML(row.body),_href=URL('compose','show_problem',args=row.id))}}
+        <p>
+            {{=A(XML(row.title),_href=URL('compose','section_index',args=row.id))}}
+            {{=LOAD('compose','sub_segments',args=row.id)}}
+        </p>
         {{pass}}
         <div id="target"></div>
         <br>
-        {{=A(XML('<button>new problem</button>'),callback=URL('compose','new_problem.load'),ajax=True,ajax_trap=True,target='target')}}
+        {{=A(XML('<button>new section</button>'),callback=URL('compose','new_section'),ajax=True,ajax_trap=True,target='target')}}

@@ -44,6 +44,14 @@ def user():
 def tinymce():
 	return dict()
 
+def form1():
+    form = SQLFORM(db.myform)
+    if form.process().accepted:
+        response.flash='acceptance'
+    else:
+        response.flash='denied'
+    return dict(form=form)
+
 @cache.action()
 def download():
     """

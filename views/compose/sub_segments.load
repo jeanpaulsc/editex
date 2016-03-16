@@ -1,0 +1,23 @@
+ <ol>
+ {{for row in rows:}}
+     {{cat=row.category}}<a href=url({{=URL('compose','show_problem',args=row.parent_id)}})>
+     {{#while row.category == cat:}}
+     <li>
+        {{if row.category=='txt':}}
+           {{=row.body}}
+           {{print '  sub-txt'}}
+        {{elif seg.category=='tex':}}
+          <p>
+           {{=IMG(_src='http://latex.codecogs.com/latex.gif?'+row.body)}}
+          </p>
+           {{print '  sub-tex'}}
+        {{elif seg.category=='img':}}
+           <p>
+            {{=IMG(_src=URL('download',row.image))}}
+       </p>
+           {{print '  sub-img'}}
+        {{pass}}
+     </li>
+      {{#pass}}
+  {{pass}}
+  </ol>

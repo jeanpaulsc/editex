@@ -1,0 +1,23 @@
+{{extend 'layout.html'}}
+<div id="target"></div>
+
+form 1: {{=form2}}
+       <br><br>
+
+form 2:
+
+<!--form lpformnum="1">
+<input type="text" id="q" name="q" value="web2py">
+<input type="button" value="submit" onclick="ajax('/editex/t/data',['q'],'target');" class="btn">
+</form-->
+<button id="rs">real submit</button>
+<script>
+    $('form').submit(function(event,ui){
+        dat = $('input:first').val();
+        alert(dat);
+        ajax('/editex/t/data',$('input:first').val(),'target');
+    });
+    $('#rs').on('click', function(event,ui){
+        $('form:first').submit();
+    })
+</script>

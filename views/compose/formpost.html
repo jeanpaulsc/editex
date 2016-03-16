@@ -1,0 +1,44 @@
+{{extend 'layout.html'}}
+{{=H3(session.cur_section_title)}}
+<style>
+    input#q {width:90%;}
+</style>
+<div class="problems">
+    <ol>
+    {{cur_problem = ""}}   <!-- init block -->
+    {{for row in rows:}}
+        {{if not row.segnum==cur_problem:}}  <!-- new problem -->
+            {{if not cur_problem==None:}}   <!--if not first problem of set -->
+              </li>
+            {{pass}}
+            {{cur_problem=row.segnum}}
+            <li>
+              <p>
+                {{if row.category=='txt':}}
+                    {{=row.body}}
+                    {{print 'txt'}}
+                {{elif row.category=='tex':}}
+                    {{=IMG(_src='http://latex.codecogs.com/latex.gif?'+row.body)}}
+                    {{print 'tex'}}
+                {{elif row.category=='img':}}
+                    {{=IMG(_src=URL('download',args=row.image))}}
+                    {{print 'img'}}
+                {{pass}}
+              </p>
+          <div class="sub-problems" id="sub{{cur_problem}}"
+               <span class="col-md-1"/>
+               <span class="sub_problems">
+                   {{=LOAD('compose','sub_segments.load',args=cur_problem)}}
+               </span>
+          </div>
+        </li>
+        {{pass}}
+    {{pass}}
+    </ol>
+</div>
+
+<form>
+<INPUT type="textarea" id="q" name = "q" value=""/>
+<INPUT type="button" value="submit"
+       onclick="ajax('{{=URL('data')}}',['q'],'target');"/>
+</form>
