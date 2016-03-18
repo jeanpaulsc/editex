@@ -1,8 +1,8 @@
 from datetime import datetime
 
 """ ACTIVE RECORD """
-if not session.ar:
-    session.ar = ''
+if not session.pid:
+    session.pid = ''
 if not session.active_section:
     session.active_sid = ''
     session.active_section = ''
@@ -13,11 +13,12 @@ db.define_table('sect',
                 Field('auth_id','integer',default=auth.user_id))
 
 db.define_table('segment',
-                Field('section_id'),
-                Field('problem'),
+                Field('section_id',default=session.pid),
+                Field('problem',default=session.pnum),
+                Field('comp_id'),
                 Field('body','text'),
                 Field('category','string',default='txt'),
-                Field('parent_id',default=session.ar),
+                Field('parent_id',default=session.pid),
                 Field('image','upload'),
                 Field('status',default='draft'),
                 Field('auth_id',default=auth.user_id),
@@ -28,17 +29,19 @@ db.define_table('segment',
 
 """ COMPOUND toi function as linked list for loading """
 
-db.define_table('compound',
+db.define_table('part',
+                Field('problem',default=session.pnum),
                 Field('body','text'),
                 Field('category','string',default='txt'),
-                Field('next_id','reference compound',default=None),
+                Field('next_id','reference part',default=None),
                 Field('image','upload'),
+                Field('parent_id','reference segment',default=session.actseg),
                 Field('status',default='draft'))
 
 db.define_table('activity',
                 Field('time_of',default=datetime.now()),
                 Field('auth_id',default=auth.user_id),
-                Field('segment_id',default=session.ar),
+                Field('segment_id',default=session.pid),
                 Field('subject','string'))
 
 db.segment.id.readable=db.segment.id.writable=False

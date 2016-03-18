@@ -6,18 +6,18 @@ def index():
 """ WRITE """
 @auth.requires_login()
 def new_problem():
-    session.ar=None
+    session.pid=None
     redirect(URL('compose','mcedit'))
     return dict()
 
 def select_segment():
-    session.ar=db(db.segment.id==request.args(0)).select().first()
-    if session.ar.status=="draft":
-        form = SQLFORM(db.segment,record=session.ar,fields=['body'],formstyle='divs',labels={'body':""})
+    session.pid=db(db.segment.id==request.args(0)).select().first()
+    if session.pid.status=="draft":
+        form = SQLFORM(db.segment,record=session.pid,fields=['body'],formstyle='divs',labels={'body':""})
     else:
         form = SQLFORM(db.segment,fields=['body'],formstyle='divs',labels={'body':""})
     if form.process().accepted:
-        session.ar=form.vars.id
+        session.pid=form.vars.id
         response.flash='record added'
     else:
         response.flash='NUCKING FUTS!'
@@ -27,7 +27,7 @@ def select_segment():
 
 def write():
     if len(request.args):
-        session.ar=request.args(0)
+        session.pid=request.args(0)
     if row.owned_by==auth.user_id:
         form = SQLFORM(db.segments,record=request.args(0),fields=['body'], formstyle='divs',labels={'body':""})
     else:

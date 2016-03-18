@@ -1,12 +1,7 @@
 {{extend 'layout.html'}}
 {{=H2('Available Sections:')}}
-        <ol>
+        <ol class="r">
 {{for row in rows:}}
-        <p>
-            {{=A(XML(row.title),_href=URL('compose','section_index',args=row.id))}}
-            {{=LOAD('compose','sub_segments',args=row.id)}}
-        </p>
+       <li>     {{=A(XML(row.title),_href=URL('compose','problem_index',args=row.sid))}}</li>
         {{pass}}
-        <div id="target"></div>
-        <br>
-        {{=A(XML('<button>new section</button>'),callback=URL('compose','new_section'),ajax=True,ajax_trap=True,target='target')}}
+            </ol>

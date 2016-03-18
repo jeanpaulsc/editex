@@ -1,0 +1,20 @@
+{{extend 'layout.html'}}
+{{=H3(session.section['title'])}}
+   <div class="problems">
+       <ol>
+           {{for row in rows:}}
+               <li class="row">
+                 {{=LOAD('compose','compounder.load',args=row.problem,ajax=True,ajax_trap=True)}}
+                 <div class="subsegs">
+                     <span class="col-md-1"></span>
+                     <span class="subsegments">
+                        <ol.a>
+                            {{=LOAD('compose','subsegedit',args=row.problem,ajax=True,ajax_trap=True)}}
+                        </ol.a>
+                     </span>
+                 </div>
+               </li>
+           {{pass}}
+       </ol>
+   </div>
+

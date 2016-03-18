@@ -9,7 +9,7 @@ S'/Users/admin/web2py/applications/editex/controllers/compose.py'
 p5
 sS'code'
 p6
-S'import datetime\n\ndef index():\n    if session.ar:\n        redirect(\'compose\',\'active_problem\')\n    if session.active_section:\n        redirect(\'compose\',\'section_index\')\n    rows = db(db.sect.id>0).select()\n    return dict(rows=rows)\n\ndef section_index():\n    section = db(db.sect.id==request.args(0)).select().first()\n    session.active_sid=section.sid\n    session.active_section=section.title\n    session.ar=""\n    rows = db(db.segment.section_id==request.args(0)).select()\n    print "form prepped",datetime.datetime.today()\n    return dict(rows=rows\n\n\ndef data():\n    if not session.m:\n        session.m = []\n    if request.vars.q:\n        if len(session.m) == 10:\n            del(session.m[0])\n        session.m.append(request.vars.q)\n    return TABLE(*[TR(v) for v in sorted(session.m)]).xml()\n\ndef flash():\n    response.flash = \'this text should appear!\'\n    return dict()\n\ndef fade():\n    return dict()\n\n\ndef new_section():\n    form=SQLFORM(db.sect)\n    if form.process().accepted:\n        redirect(URL(\'compose\',\'section_index\',args=form.vars.id))\n    return dict(form=form)\n\ndef append_problem():\n    return "jQuery(\'#problems\').append(%s);" % repr(request.vars.body)\n\ndef origin():\n    return dict()\n\ndef echo():\n    print "echo %s" % request.vars.name\n    return request.vars.name\n\n""" WRITE """\n@auth.requires_login()\ndef add_problem():\n    print \'entered add_problem\'\n    body=request.vars.body\n    print "body: ",body\n    bid = db.segment.insert(body=body)\n    print "problem inserted"\n    return "jquery(\'#problems\').append(%s);" % body\n\n@auth.requires_login()\ndef new_problem():\n    body=request.vars.body\n    form = SQLFORM(db.segment)  #,fields=[\'body\'],formstyle=\'divs\',labels={\'body\':""})\n    if form.process().accepted:\n        db(db.segment.id==form.vars.id).update(segnum=form.vars.id)\n        response.flash=form.vars.segment_body\n    return dict(form=form)\n\n@auth.requires_login()\ndef append_txt():\n    segnum = request.args(0)\n    form = SQLFORM(db.segment,fields=[\'body\'],formstyle=\'divs\',labels={\'body\':""})\n    if form.process().accepted:\n        id = form.vars.id\n        db(db.segment.id==form.vars.id).update(segnum=segnum,parent_id=None,category=\'txt\')\n        response.flash=\'record added\'\n    return dict(form=form)\n\n@auth.requires_login()\ndef append_tex():\n    segnum = request.args(0)\n    form = SQLFORM(db.segment,fields=[\'body\'],formstyle=\'divs\',labels={\'body\':""})\n    if form.process().accepted:\n        id = form.vars.id\n        db(db.segment.id==form.vars.id).update(segnum=segnum,parent_id=None,category=\'tex\')\n        response.flash=\'record added\'\n    return dict(form=form)\n\n""" READ """\n@auth.requires_login()\ndef show_problem():\n    session.cur_owner = ""\n    rows = db(db.segment.segnum==request.args(0)).select()\n    return dict(rows=rows)\n\n@cache.action()\ndef download():\n    return response.download(request, db)\n\n""" WORKING  """\nresponse._vars=response._caller(origin)\n'
+S'import datetime\n\ndef index():\n    if session.pid:\n        redirect(\'compose\',\'active_problem\')\n    if session.active_section:\n        redirect(\'compose\',\'section_index\')\n    rows = db(db.sect.id>0).select()\n    return dict(rows=rows)\n\ndef section_index():\n    section = db(db.sect.id==request.args(0)).select().first()\n    session.active_sid=section.sid\n    session.active_section=section.title\n    session.pid=""\n    rows = db(db.segment.section_id==request.args(0)).select()\n    print "form prepped",datetime.datetime.today()\n    return dict(rows=rows\n\n\ndef data():\n    if not session.m:\n        session.m = []\n    if request.vars.q:\n        if len(session.m) == 10:\n            del(session.m[0])\n        session.m.append(request.vars.q)\n    return TABLE(*[TR(v) for v in sorted(session.m)]).xml()\n\ndef flash():\n    response.flash = \'this text should appear!\'\n    return dict()\n\ndef fade():\n    return dict()\n\n\ndef new_section():\n    form=SQLFORM(db.sect)\n    if form.process().accepted:\n        redirect(URL(\'compose\',\'section_index\',args=form.vars.id))\n    return dict(form=form)\n\ndef append_problem():\n    return "jQuery(\'#problems\').append(%s);" % repr(request.vars.body)\n\ndef origin():\n    return dict()\n\ndef echo():\n    print "echo %s" % request.vars.name\n    return request.vars.name\n\n""" WRITE """\n@auth.requires_login()\ndef add_problem():\n    print \'entered add_problem\'\n    body=request.vars.body\n    print "body: ",body\n    bid = db.segment.insert(body=body)\n    print "problem inserted"\n    return "jquery(\'#problems\').append(%s);" % body\n\n@auth.requires_login()\ndef new_problem():\n    body=request.vars.body\n    form = SQLFORM(db.segment)  #,fields=[\'body\'],formstyle=\'divs\',labels={\'body\':""})\n    if form.process().accepted:\n        db(db.segment.id==form.vars.id).update(segnum=form.vars.id)\n        response.flash=form.vars.segment_body\n    return dict(form=form)\n\n@auth.requires_login()\ndef append_txt():\n    segnum = request.args(0)\n    form = SQLFORM(db.segment,fields=[\'body\'],formstyle=\'divs\',labels={\'body\':""})\n    if form.process().accepted:\n        id = form.vars.id\n        db(db.segment.id==form.vars.id).update(segnum=segnum,parent_id=None,category=\'txt\')\n        response.flash=\'record added\'\n    return dict(form=form)\n\n@auth.requires_login()\ndef append_tex():\n    segnum = request.args(0)\n    form = SQLFORM(db.segment,fields=[\'body\'],formstyle=\'divs\',labels={\'body\':""})\n    if form.process().accepted:\n        id = form.vars.id\n        db(db.segment.id==form.vars.id).update(segnum=segnum,parent_id=None,category=\'tex\')\n        response.flash=\'record added\'\n    return dict(form=form)\n\n""" READ """\n@auth.requires_login()\ndef show_problem():\n    session.cur_owner = ""\n    rows = db(db.segment.segnum==request.args(0)).select()\n    return dict(rows=rows)\n\n@cache.action()\ndef download():\n    return response.download(request, db)\n\n""" WORKING  """\nresponse._vars=response._caller(origin)\n'
 p7
 sS'snapshot'
 p8
@@ -148,7 +148,7 @@ p75
 (dp76
 S'code'
 p77
-S'\'import datetime\\n\\ndef index():\\n    if session.ar:...ING  """\\nresponse._vars=response._caller(origin)\\n\''
+S'\'import datetime\\n\\ndef index():\\n    if session.pid:...ING  """\\nresponse._vars=response._caller(origin)\\n\''
 p78
 sS'layer'
 p79
@@ -200,7 +200,7 @@ S'        if isinstance(code, types.CodeType):'
 p97
 ssS'call'
 p98
-S'(code=\'import datetime\\n\\ndef index():\\n    if session.ar:...ING  """\\nresponse._vars=response._caller(origin)\\n\', environment={\'A\': <class \'gluon.html.A\'>, \'ANY_OF\': <class \'gluon.validators.ANY_OF\'>, \'ASSIGNJS\': <function ASSIGNJS>, \'AppConfig\': <function AppConfig>, \'Auth\': <class \'gluon.tools.Auth\'>, \'B\': <class \'gluon.html.B\'>, \'BEAUTIFY\': <class \'gluon.html.BEAUTIFY\'>, \'BODY\': <class \'gluon.html.BODY\'>, \'BR\': <class \'gluon.html.BR\'>, \'BUTTON\': <class \'gluon.html.BUTTON\'>, ...}, layer=\'/Users/admin/web2py/applications/editex/controllers/compose.py\')'
+S'(code=\'import datetime\\n\\ndef index():\\n    if session.pid:...ING  """\\nresponse._vars=response._caller(origin)\\n\', environment={\'A\': <class \'gluon.html.A\'>, \'ANY_OF\': <class \'gluon.validators.ANY_OF\'>, \'ASSIGNJS\': <function ASSIGNJS>, \'AppConfig\': <function AppConfig>, \'Auth\': <class \'gluon.tools.Auth\'>, \'B\': <class \'gluon.html.B\'>, \'BEAUTIFY\': <class \'gluon.html.BEAUTIFY\'>, \'BODY\': <class \'gluon.html.BODY\'>, \'BR\': <class \'gluon.html.BR\'>, \'BUTTON\': <class \'gluon.html.BUTTON\'>, ...}, layer=\'/Users/admin/web2py/applications/editex/controllers/compose.py\')'
 p99
 sS'func'
 p100
@@ -218,7 +218,7 @@ S'<built-in function compile>'
 p106
 sS'code'
 p107
-S'\'import datetime\\n\\ndef index():\\n    if session.ar:...ING  """\\nresponse._vars=response._caller(origin)\\n\''
+S'\'import datetime\\n\\ndef index():\\n    if session.pid:...ING  """\\nresponse._vars=response._caller(origin)\\n\''
 p108
 sS'code.rstrip'
 p109
@@ -263,7 +263,7 @@ sI213
 S'    """'
 p121
 ssg98
-S'(code=\'import datetime\\n\\ndef index():\\n    if session.ar:...ING  """\\nresponse._vars=response._caller(origin)\\n\', layer=\'/Users/admin/web2py/applications/editex/controllers/compose.py\')'
+S'(code=\'import datetime\\n\\ndef index():\\n    if session.pid:...ING  """\\nresponse._vars=response._caller(origin)\\n\', layer=\'/Users/admin/web2py/applications/editex/controllers/compose.py\')'
 p122
 sg100
 S'compile2'
@@ -297,7 +297,7 @@ g4
 S"'/Users/admin/web2py/applications/editex/controllers/compose.py'"
 p136
 sg6
-S'\'import datetime\\n\\ndef index():\\n    if session.ar:...ING  """\\nresponse._vars=response._caller(origin)\\n\''
+S'\'import datetime\\n\\ndef index():\\n    if session.pid:...ING  """\\nresponse._vars=response._caller(origin)\\n\''
 p137
 sssS'traceback'
 p138

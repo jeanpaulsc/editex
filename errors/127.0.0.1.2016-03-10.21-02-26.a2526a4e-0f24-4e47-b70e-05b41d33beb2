@@ -9,7 +9,7 @@ S'/Users/admin/web2py/applications/editex/models/tablesOLD.py'
 p5
 sS'code'
 p6
-S'from datetime import datetime\n\nif not session.cur_tier:\n    session.cur_tier = 0\n\ndb.define_table(\'segment\',\n                Field(\'body\',\'text\'),\n                Field(\'category\',\'string\',default=\'txt\'),\n"""\t            Field(\'meta_id\'),\n                Field(\'tier\',\'integer\',default=0),\n                Field(\'root\',\'integer\',default=0), """\n                Field(\'parent\',default=session.ar),\n                Field(\'pos\',\'double\'),\n                Field(\'image\',\'upload\'),\n                Field(\'status\',default=\'draft\'),\n                Field(\'owned_by\',default=auth.user_id))\n\ndb.define_table(\'msg\',\n\t            Field(\'recipient\',\'string\'),\n\t            Field(\'reply_to\',\'string\'),\n                Field(\'subject\',\'string\'),\n\t            Field(\'body\',\'text\'),\n\t            Field(\'created\',default=datetime.now()))\n\ndb.segment.id.readable=db.segment.id.writable=False\ndb.segment.meta_id.readable=db.segment.meta_id.writable=False\ndb.segment.category.readable=db.segment.category.writable=False\ndb.msg.recipient.readable=True\ndb.msg.recipient.writable=False\ndb.msg.reply_to.readable=True\ndb.msg.reply_to.writable=False\ndb.msg.subject.readable=True\ndb.msg.subject.writable=False\ndb.msg.created.readable=db.msg.created.writable=False\ndb.segment.category.readable=db.segment.category.writable=False\ndb.segment.meta_id.readable=db.segment.meta_id.writable=False\ndb.meta.creation_date.readable=db.meta.creation_date.writable=False\ndb.meta.doc_state.readable=db.meta.doc_state.writable=False\n'
+S'from datetime import datetime\n\nif not session.cur_tier:\n    session.cur_tier = 0\n\ndb.define_table(\'segment\',\n                Field(\'body\',\'text\'),\n                Field(\'category\',\'string\',default=\'txt\'),\n"""\t            Field(\'meta_id\'),\n                Field(\'tier\',\'integer\',default=0),\n                Field(\'root\',\'integer\',default=0), """\n                Field(\'parent\',default=session.pid),\n                Field(\'pos\',\'double\'),\n                Field(\'image\',\'upload\'),\n                Field(\'status\',default=\'draft\'),\n                Field(\'owned_by\',default=auth.user_id))\n\ndb.define_table(\'msg\',\n\t            Field(\'recipient\',\'string\'),\n\t            Field(\'reply_to\',\'string\'),\n                Field(\'subject\',\'string\'),\n\t            Field(\'body\',\'text\'),\n\t            Field(\'created\',default=datetime.now()))\n\ndb.segment.id.readable=db.segment.id.writable=False\ndb.segment.meta_id.readable=db.segment.meta_id.writable=False\ndb.segment.category.readable=db.segment.category.writable=False\ndb.msg.recipient.readable=True\ndb.msg.recipient.writable=False\ndb.msg.reply_to.readable=True\ndb.msg.reply_to.writable=False\ndb.msg.subject.readable=True\ndb.msg.subject.writable=False\ndb.msg.created.readable=db.msg.created.writable=False\ndb.segment.category.readable=db.segment.category.writable=False\ndb.segment.meta_id.readable=db.segment.meta_id.writable=False\ndb.meta.creation_date.readable=db.meta.creation_date.writable=False\ndb.meta.doc_state.readable=db.meta.doc_state.writable=False\n'
 p7
 sS'snapshot'
 p8
@@ -23,7 +23,7 @@ S"<method-wrapper '__getslice__' of exceptions.SyntaxError object>"
 p13
 sS'text'
 p14
-S'"                Field(\'parent\',default=session.ar),\\n"'
+S'"                Field(\'parent\',default=session.pid),\\n"'
 p15
 sS'__str__'
 p16
@@ -99,7 +99,7 @@ S'None'
 p51
 sS'args'
 p52
-S'(\'invalid syntax\', (\'/Users/admin/web2py/applications/editex/models/tablesOLD.py\', 12, 21, "                Field(\'parent\',default=session.ar),\\n"))'
+S'(\'invalid syntax\', (\'/Users/admin/web2py/applications/editex/models/tablesOLD.py\', 12, 21, "                Field(\'parent\',default=session.pid),\\n"))'
 p53
 sS'__subclasshook__'
 p54
@@ -302,6 +302,6 @@ S"'from datetime import datetime\\n\\nif not session.cu..._state.readable=db.met
 p138
 sssS'traceback'
 p139
-S'Traceback (most recent call last):\n  File "/Users/admin/web2py/gluon/restricted.py", line 226, in restricted\n    ccode = compile2(code, layer)\n  File "/Users/admin/web2py/gluon/restricted.py", line 209, in compile2\n    return compile(code.rstrip().replace(\'\\r\\n\', \'\\n\') + \'\\n\', layer, \'exec\')\n  File "/Users/admin/web2py/applications/editex/models/tablesOLD.py", line 12\n    Field(\'parent\',default=session.ar),\n        ^\nSyntaxError: invalid syntax\n'
+S'Traceback (most recent call last):\n  File "/Users/admin/web2py/gluon/restricted.py", line 226, in restricted\n    ccode = compile2(code, layer)\n  File "/Users/admin/web2py/gluon/restricted.py", line 209, in compile2\n    return compile(code.rstrip().replace(\'\\r\\n\', \'\\n\') + \'\\n\', layer, \'exec\')\n  File "/Users/admin/web2py/applications/editex/models/tablesOLD.py", line 12\n    Field(\'parent\',default=session.pid),\n        ^\nSyntaxError: invalid syntax\n'
 p140
 s.

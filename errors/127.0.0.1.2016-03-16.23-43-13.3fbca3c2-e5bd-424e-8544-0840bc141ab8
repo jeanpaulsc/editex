@@ -1,0 +1,21 @@
+(dp1
+S'output'
+p2
+S"<type 'exceptions.RuntimeError'> maximum recursion depth exceeded"
+p3
+sS'layer'
+p4
+S'/Users/admin/web2py/applications/editex/views/compose/subsegs.load'
+p5
+sS'code'
+p6
+S'response.write(\'\\n<ol>\\n    \', escape=False)\nprint \'in subsegs.problems with req: \',request.args(0)\nresponse.write(\'\\n    \', escape=False)\ncur_problem = ""\nresponse.write(\'   <!-- init block -->\\n    \', escape=False)\nfor row in rows:\n    response.write(\'\\n         \', escape=False)\n    if cur_problem=="":\n        response.write(\'   <!--if not first problem of set -->\\n              </li>\\n        \', escape=False)\n        pass\n    response.write(\'\\n        \', escape=False)\n    print \'seg_id: \',row.problem\n    response.write(\'\\n          <!-- new problem -->\\n        \', escape=False)\n    if row.problem <> cur_problem:\n        response.write(\'\\n\\n            \', escape=False)\n        cur_problem=row.problem\n        response.write(\'\\n            <li>\\n        \', escape=False)\n        pass\n    response.write(\'\\n              <p>\\n                \', escape=False)\n    if row.category==\'txt\':\n        response.write(\'\\n                    \', escape=False)\n        response.write(row.body)\n        response.write(\'\\n                    \', escape=False)\n        print \'txt\'\n        response.write(\'\\n                \', escape=False)\n    elif row.category==\'tex\':\n        response.write(\'\\n                    \', escape=False)\n        response.write(IMG(_src=\'http://latex.codecogs.com/latex.gif?\'+row.body))\n        response.write(\'\\n                    \', escape=False)\n        print \'tex\'\n        response.write(\'\\n                \', escape=False)\n    elif row.category==\'img\':\n        response.write(\'\\n                    \', escape=False)\n        response.write(IMG(_src=URL(\'download\',args=row.image)))\n        response.write(\'\\n                    \', escape=False)\n        print \'img\'\n        response.write(\'\\n                \', escape=False)\n        pass\n    response.write(\'\\n              </p>\\n          <div class="sub-problems" id="sub\', escape=False)\n    cur_problem\n    response.write(\'"\\n               <span class="col-md-1"/>\\n               <span class="sub_problems">\\n                   \', escape=False)\n    response.write(LOAD(\'compose\',\'subsegs.load\',args=cur_problem))\n    response.write(\'\\n               </span>\\n          </div>\\n    \', escape=False)\n    pass\nresponse.write(\'\\n        </li><!-- -->\\n</ol>\', escape=False)'
+p7
+sS'snapshot'
+p8
+(dp9
+sS'traceback'
+p10
+S'Traceback (most recent call last):\n  File "/Users/admin/web2py/gluon/restricted.py", line 227, in restricted\n    exec ccode in environment\n  File "/Users/admin/web2py/applications/editex/views/compose/subsegs.load", line 42, in <module>\n  File "/Users/admin/web2py/gluon/compileapp.py", line 235, in LOAD\n    run_view_in(other_response._view_environment)\n  File "/Users/admin/web2py/gluon/compileapp.py", line 712, in run_view_in\n    context=environment)\n  File "/Users/admin/web2py/gluon/template.py", line 797, in parse_template\n    return str(TemplateParser(text, context=context, path=path, lexers=lexers, delimiters=delimiters))\n  File "/Users/admin/web2py/gluon/template.py", line 331, in __str__\n    return self.to_string()\n  File "/Users/admin/web2py/gluon/template.py", line 327, in to_string\n    return self.reindent(str(self.content))\n  File "/Users/admin/web2py/gluon/template.py", line 168, in __str__\n    return \'\'.join(output_aux(node, self.blocks) for node in self.nodes)\n  File "/Users/admin/web2py/gluon/template.py", line 168, in <genexpr>\n    return \'\'.join(output_aux(node, self.blocks) for node in self.nodes)\n  File "/Users/admin/web2py/gluon/template.py", line 78, in output_aux\n    else str(node)\nRuntimeError: maximum recursion depth exceeded\n'
+p11
+s.

@@ -1,0 +1,12 @@
+        {{for row in rows:}}
+        <div class='wrapper'>
+        {{if row.body:}}
+        <p>
+        {{=XML(row.body)}}
+        </p>
+        {{else:}}
+        {{=IMG(_src=URL('download',args=row.image))}}
+        {{pass}}
+            </div>
+        {{pass}}<br><br>
+form: {{=form}}

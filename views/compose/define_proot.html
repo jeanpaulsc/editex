@@ -1,0 +1,5 @@
+{{extend 'layout.html'}}
+{{=H3('Define Block for Problem')}}&nbsp;{{=H3(session.pnum)}}.
+        <div id="target"></div>
+{{=LOAD('compose','compounder',ajax=True,ajax_trap=True,target='target')}}
+        <button>done</button>

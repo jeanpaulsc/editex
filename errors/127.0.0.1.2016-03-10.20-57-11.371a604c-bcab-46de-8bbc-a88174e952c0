@@ -9,7 +9,7 @@ S'/Users/admin/web2py/applications/editex/models/editex_tables.py'
 p5
 sS'code'
 p6
-S'from datetime import datetime\n\n""" ACTIVE RECORD """\nif not session.ar:\n    session.ar = 0\n\ndb.define_table(\'segment\',\n                Field(\'segnum\'),\n                Field(\'body\',\'text\'),\n                Field(\'category\',\'string\',default=\'txt\'),\n                Field(\'paren_idt\',default=session.ar.id),\n                Field(\'image\',\'upload\'),\n                Field(\'status\',default=\'draft\'),\n                Field(\'auth_id\',default=auth.user_id),\n                Field(\'tier\',default=session.ar.tier+1),\n\t            Field(\'time_of\',default=datetime.now()))\n\ndb.define_table(\'activity\',\n                Field(\'time_of\',default=datetime.now()),\n                Field(\'auth_id\',default=auth.user_id),\n                Field(\'segment_id\',default=session.ar),\n                Field(\'subject\',\'string\'))\n\ndb.segment.id.readable=db.segment.id.writable=False\ndb.segment.parent.readable=db.segment.parent.writable=False\ndb.segment.category.readable=db.segment.category.writable=False\ndb.segment.parent.readable=db.segment.parent.writable=False\ndb.segment.status.readable=db.segment.status.writable=False\ndb.segment.auth_id.readable=db.segment.auth_id.writable=False\ndb.segment.time_of.readable=db.segment.time_of.writable=False\ndb.activity.time_of.readable=db.activity.time_of.writable=False\ndb.activity.time_of.readable=db.activity.time_of.writable=False\ndb.activity.segment_id.readable=db.activity.segment_id.writable=False\ndb.activity.subject.readable=True\ndb.activity.subject.writable=False\n'
+S'from datetime import datetime\n\n""" ACTIVE RECORD """\nif not session.pid:\n    session.pid = 0\n\ndb.define_table(\'segment\',\n                Field(\'segnum\'),\n                Field(\'body\',\'text\'),\n                Field(\'category\',\'string\',default=\'txt\'),\n                Field(\'paren_idt\',default=session.pid.id),\n                Field(\'image\',\'upload\'),\n                Field(\'status\',default=\'draft\'),\n                Field(\'auth_id\',default=auth.user_id),\n                Field(\'tier\',default=session.pid.tier+1),\n\t            Field(\'time_of\',default=datetime.now()))\n\ndb.define_table(\'activity\',\n                Field(\'time_of\',default=datetime.now()),\n                Field(\'auth_id\',default=auth.user_id),\n                Field(\'segment_id\',default=session.pid),\n                Field(\'subject\',\'string\'))\n\ndb.segment.id.readable=db.segment.id.writable=False\ndb.segment.parent.readable=db.segment.parent.writable=False\ndb.segment.category.readable=db.segment.category.writable=False\ndb.segment.parent.readable=db.segment.parent.writable=False\ndb.segment.status.readable=db.segment.status.writable=False\ndb.segment.auth_id.readable=db.segment.auth_id.writable=False\ndb.segment.time_of.readable=db.segment.time_of.writable=False\ndb.activity.time_of.readable=db.activity.time_of.writable=False\ndb.activity.time_of.readable=db.activity.time_of.writable=False\ndb.activity.segment_id.readable=db.activity.segment_id.writable=False\ndb.activity.subject.readable=True\ndb.activity.subject.writable=False\n'
 p7
 sS'snapshot'
 p8
@@ -193,10 +193,10 @@ sS'session'
 p94
 S"<Storage {'_formkey[segment/12]': ['b7d9bece-438...71c12', '22b6b4f6-f8b2-4dce-9ee7-a41ae6a2e6b6']}>"
 p95
-sS'session.ar'
+sS'session.pid'
 p96
 S'0'
-sS'session.ar.id'
+sS'session.pid.id'
 p97
 g91
 ssg70
@@ -218,7 +218,7 @@ sI10
 S"                Field('category','string',default='txt'),"
 p102
 sI11
-S"                Field('paren_idt',default=session.ar.id),"
+S"                Field('paren_idt',default=session.pid.id),"
 p103
 sI12
 S"                Field('image','upload'),"
@@ -230,7 +230,7 @@ sI14
 S"                Field('auth_id',default=auth.user_id),"
 p106
 sI15
-S"                Field('tier',default=session.ar.tier+1),"
+S"                Field('tier',default=session.pid.tier+1),"
 p107
 ssg83
 S'()'
@@ -785,6 +785,6 @@ S'<gluon.languages.translator object>'
 p377
 sssS'traceback'
 p378
-S'Traceback (most recent call last):\n  File "/Users/admin/web2py/gluon/restricted.py", line 227, in restricted\n    exec ccode in environment\n  File "/Users/admin/web2py/applications/editex/models/editex_tables.py", line 11, in <module>\n    Field(\'paren_idt\',default=session.ar.id),\nAttributeError: \'int\' object has no attribute \'id\'\n'
+S'Traceback (most recent call last):\n  File "/Users/admin/web2py/gluon/restricted.py", line 227, in restricted\n    exec ccode in environment\n  File "/Users/admin/web2py/applications/editex/models/editex_tables.py", line 11, in <module>\n    Field(\'paren_idt\',default=session.pid.id),\nAttributeError: \'int\' object has no attribute \'id\'\n'
 p379
 s.

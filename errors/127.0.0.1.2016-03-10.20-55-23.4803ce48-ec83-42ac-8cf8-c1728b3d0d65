@@ -9,7 +9,7 @@ S'/Users/admin/web2py/applications/editex/models/editex_tables.py'
 p5
 sS'code'
 p6
-S'from datetime import datetime\n\n""" ACTIVE RECORD """\nif not session.ar:\n    session.ar = 0\n\ndb.define_table(\'segment\',\n                Field(\'segnum\'),\n                Field(\'body\',\'text\'),\n                Field(\'category\',\'string\',default=\'txt\'),\n                Field(\'paren_idt\',default=session.ar.id),\n                Field(\'image\',\'upload\'),\n                Field(\'status\',default=\'draft\'),\n                Field(\'auth_id\',default=auth.user_id),\n                Field(\'tier\',default=session.ar.tier+1),\n\t            Field(\'time_of\',default=datetime.now()))\n\ndb.define_table(\'activity\',\n                Field(\'time_of\',default=datetime.now()),\n                Field(\'auth_id\',default=auth.user_id)),\n                Field(\'segment_id\',default=session.ar),\n                Field(\'subject\',\'string\'))\n\ndb.segment.id.readable=db.segment.id.writable=False\ndb.segment.parent.readable=db.segment.parent.writable=False\ndb.segment.category.readable=db.segment.category.writable=False\ndb.segment.parent.readable=db.segment.parent.writable=False\ndb.segment.status.readable=db.segment.status.writable=False\ndb.segment.auth_id.readable=db.segment.auth_id.writable=False\ndb.segment.time_of.readable=db.segment.time_of.writable=False\ndb.activity.time_of.readable=db.activity.time_of.writable=False\ndb.activity.time_of.readable=db.activity.time_of.writable=False\ndb.activity.segment_id.readable=db.activity.segment_id.writable=False\ndb.activity.subject.readable=True\ndb.activity.subject.writable=False\n'
+S'from datetime import datetime\n\n""" ACTIVE RECORD """\nif not session.pid:\n    session.pid = 0\n\ndb.define_table(\'segment\',\n                Field(\'segnum\'),\n                Field(\'body\',\'text\'),\n                Field(\'category\',\'string\',default=\'txt\'),\n                Field(\'paren_idt\',default=session.pid.id),\n                Field(\'image\',\'upload\'),\n                Field(\'status\',default=\'draft\'),\n                Field(\'auth_id\',default=auth.user_id),\n                Field(\'tier\',default=session.pid.tier+1),\n\t            Field(\'time_of\',default=datetime.now()))\n\ndb.define_table(\'activity\',\n                Field(\'time_of\',default=datetime.now()),\n                Field(\'auth_id\',default=auth.user_id)),\n                Field(\'segment_id\',default=session.pid),\n                Field(\'subject\',\'string\'))\n\ndb.segment.id.readable=db.segment.id.writable=False\ndb.segment.parent.readable=db.segment.parent.writable=False\ndb.segment.category.readable=db.segment.category.writable=False\ndb.segment.parent.readable=db.segment.parent.writable=False\ndb.segment.status.readable=db.segment.status.writable=False\ndb.segment.auth_id.readable=db.segment.auth_id.writable=False\ndb.segment.time_of.readable=db.segment.time_of.writable=False\ndb.activity.time_of.readable=db.activity.time_of.writable=False\ndb.activity.time_of.readable=db.activity.time_of.writable=False\ndb.activity.segment_id.readable=db.activity.segment_id.writable=False\ndb.activity.subject.readable=True\ndb.activity.subject.writable=False\n'
 p7
 sS'snapshot'
 p8
@@ -23,7 +23,7 @@ S"<method-wrapper '__getslice__' of exceptions.IndentationError object>"
 p13
 sS'text'
 p14
-S'"                Field(\'segment_id\',default=session.ar),\\n"'
+S'"                Field(\'segment_id\',default=session.pid),\\n"'
 p15
 sS'__str__'
 p16
@@ -99,7 +99,7 @@ S'None'
 p51
 sS'args'
 p52
-S'(\'unexpected indent\', (\'/Users/admin/web2py/applications/editex/models/editex_tables.py\', 21, 16, "                Field(\'segment_id\',default=session.ar),\\n"))'
+S'(\'unexpected indent\', (\'/Users/admin/web2py/applications/editex/models/editex_tables.py\', 21, 16, "                Field(\'segment_id\',default=session.pid),\\n"))'
 p53
 sS'__subclasshook__'
 p54
@@ -302,6 +302,6 @@ S'\'from datetime import datetime\\n\\n""" ACTIVE RECORD...readable=True\\ndb.ac
 p138
 sssS'traceback'
 p139
-S'Traceback (most recent call last):\n  File "/Users/admin/web2py/gluon/restricted.py", line 226, in restricted\n    ccode = compile2(code, layer)\n  File "/Users/admin/web2py/gluon/restricted.py", line 209, in compile2\n    return compile(code.rstrip().replace(\'\\r\\n\', \'\\n\') + \'\\n\', layer, \'exec\')\n  File "/Users/admin/web2py/applications/editex/models/editex_tables.py", line 21\n    Field(\'segment_id\',default=session.ar),\n    ^\nIndentationError: unexpected indent\n'
+S'Traceback (most recent call last):\n  File "/Users/admin/web2py/gluon/restricted.py", line 226, in restricted\n    ccode = compile2(code, layer)\n  File "/Users/admin/web2py/gluon/restricted.py", line 209, in compile2\n    return compile(code.rstrip().replace(\'\\r\\n\', \'\\n\') + \'\\n\', layer, \'exec\')\n  File "/Users/admin/web2py/applications/editex/models/editex_tables.py", line 21\n    Field(\'segment_id\',default=session.pid),\n    ^\nIndentationError: unexpected indent\n'
 p140
 s.

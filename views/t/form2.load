@@ -1,0 +1,14 @@
+{{=H3('Contents:')}}
+<br>
+        <div id="target">
+        {{for row in rows:}}
+        <p>
+        {{if row.image:}}
+        {{=IMG(_src=URL('download',args=row.image))}}
+        {{else:}}
+        {{=XML(row.body)}}
+        {{pass}}
+            </p>
+        {{pass}}<br><br>
+form: {{=form}}
+       </div>

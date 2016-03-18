@@ -1,0 +1,21 @@
+.doc-col {
+    max-width: 740px;
+    padding: 20px;
+}
+.doc-col img {
+    margin-bottom: 20px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.wrapper {
+    display: block;
+    margin: 0 auto;
+}
+img {
+    margin: 0 auto;
+    display: block;
+}
+ol.r {list-style-type: upper-roman;}
+ul.n {list-style-type: none;}
+ol.a {list-style-type: lower-alpha;}

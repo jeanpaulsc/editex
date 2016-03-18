@@ -1,0 +1,6 @@
+        {{block head}}
+<link rel="stylesheet" href="{{=URL('static','css/editex.css')}}">
+ {{end}}
+        <div id="main">
+{{=LOAD('t','form1.load',args=,ajax=True,ajax_trap=True)}}
+            </div>

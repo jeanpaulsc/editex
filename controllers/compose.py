@@ -1,45 +1,102 @@
 import datetime
 
 def index():
-    rows = db(db.sect.id>0).select()
+    rows = db(db.sect.id>0).select(orderby='sid')
     return dict(rows=rows)
 
-def select_sect():
-    session.active_sid = request.args(0)
-    section = db(db.sect.id==session.active_sid).select().first()
-    session.section_title = section.title
-    session.ar=""
-    redirect('compose','section_index')
-
-def problems():             # expects section as args(0)
-    if len(request.args) > 0:
-        section = db(db.segment.problem==request.args(0)).select().first()
-    else:
-       section = db(db.segment.problem==1).select().first()
-    session.m = []
-    rows = ""
-    """
-    try:
-        rows = db(db.segment.parent_id==request.args(0, int)).select()
-    except:
-        print 'section error'
-        redirect('compose','index')"""
+def problem_index():             # expects section as session.sect
+    print "in problem_index"
+    session.section = db(db.sect.id==request.args(0,int)).select().first() or redirect(URL('compose','index'))
+    print 'row 10'
+    rows = db(db.segment.section_id==request.args(0,int)).select(orderby='problem')
+    if len(rows)==0:
+        print 'section yields no rows'
+        redirect(URL('compose','define_problem'))
     print "form prepared",datetime.datetime.today()
-    print
-    print 'rows: '
-    print rows
-    return dict(section=section)
-
-def subsegs():
-    if len(request.args)==0:
-        rows = db(db.segment.section_id==request.vars['section']).select(orderby='problem')
-    else:
-        rows = db(db.segment.parent_id==request.args(0)).select(orderby='problem')
-    print "in subsegs with args: ",request.args(0)
-    print len(rows), 'selected'
-    if len(rows)==None:
-        return dict()
     return dict(rows=rows)
+
+def append_compound():
+    session.pid = request.args(0,int)
+    form = SQLFORM(db.segments,fields=['body','image'])
+    if form.process().accepted:
+        db.segment.update(session.pid,comp_id=form.vars.id)
+    return dict()
+
+def define_problem():
+    print 'in define_problem'
+    form = SQLFORM.factory(
+        Field('section', 'integer', requires=IS_NOT_EMPTY()),
+        Field('problem', 'integer', requires=IS_NOT_EMPTY()),
+        Field('subpart'))
+    form.vars.section=session.sid
+    form.vars.problem=session.pnum
+    if form.process().accepted:
+        response.flash = 'defaults updated'
+        session.sid = int(form.vars.section)
+        session.pnum = int(form.vars.problem)
+        session.pid = db(db.segment.problem==int(session.pnum)).select().first()
+        if not session.prid:
+            session.pid = db.segment.insert(status='problem')
+            redirect(URL('compose','define_proot',args=session.pid))
+        session.subparts = db(db.segment.parent_id==int(session.pnum)).select()
+        redirect('compose','define_subs')
+    elif form.errors:
+        response.flash = 'form has errors'
+    return dict(form=form)
+
+def define_proot():
+    print 'in proot'
+    return dict()
+
+def define_subs():
+    return dict()
+
+def compounder():
+    print 'in controller: compounder'
+    form = SQLFORM(db.part,fields=['body','image'])
+    rows = db(db.comp_id==session.pid).select()
+    if form.process().accepted:
+        return LOAD('compose','compounder',ajax=True,ajax_trap=True)
+    return dict(form=form,rows=rows)
+
+def compounderOLD():
+    if request.args:
+        print 'in compounder with new curseg: ', request.args(0)
+        session.curseg = request.args(0)
+    form = SQLFORM(db.segment,fields=['body','image'])
+    rows = db(db.part.comp_id==comp_id).select()
+    print len(rows), ' existing found'
+    if form.process().accepted:
+        print 'record created: ',form.args.id
+        return LOAD('compose','compounder',ajax=True,ajax_trap=True)
+    return dict(form=form,rows=rows)
+
+def compound_problem():
+    form = SQLFORM(db.segment)
+    return dict(form=form)
+
+def compound():
+    rows = db(db.compound.problem==request.args(0,int)).select() or redirect('index')
+    return dict(rows=rows)
+
+def subsegedit():
+    if len(request.args)==0:
+        session.pid=request.args(0,int)
+    print 'in controller: subsegedit'
+    form = SQLFORM(db.segment,fields=['body','image'])
+    rows = db(db.segment.parent_id==session.pid).select(orderby='problem')
+    if form.process().accepted:
+        return LOAD('compose','compounder',ajax=True,ajax_trap=True)
+    return dict(form=form,rows=rows)
+
+def compounder():
+    print 'in compounder'
+    rows = db(db.segment.comp_id==session.pid).select()
+    form = SQLFORM(db.segment,fields=['body','image'])
+    if form.process().accepted:
+        return LOAD('compose','compounder',ajax=True,ajax_trap=True)
+    return dict(form=form,rows=rows)
+
 
 def new_compound():
     rid = request.args(0)
@@ -90,14 +147,14 @@ def data2():
         session.m.append(form.vars.body)
     return TABLE(*[TR(v) for v in session.m])
 
-def compounder():
+def compounder3():
     form = SQLFORM(db.compound)
     if form.accepted:
         response.flash='form accepted'
-        return dict() # LOAD('compose','data',vars=form.vars,ajax=True)
+        return LOAD('compose','compounder',ajax=True,ajax_trap=True)
     else:
         response.flash='form error ', Exception
-    return dict(form=form)
+    return dict(form=form,rows=rows)
 
 def flash():
     response.flash = 'this text should appear!'
