@@ -71,6 +71,38 @@ def compounderOLD():
         return LOAD('compose','compounder',ajax=True,ajax_trap=True)
     return dict(form=form,rows=rows)
 
+def p_comp():
+    rows = db(db.select.problem==request.args(0)).select()
+    return dict(rows=rows)
+
+def listtest():
+    return dict()
+
+def vp():
+    rows = db(db.segment.id>0).select()
+    return dict(rows=rows)
+
+# testing distinct problem division
+
+def distinct_parts():
+    set = db(db.part.id>0)
+    print 'set len ',len(set.select())
+    rows = db().select(db.part.ALL,orderby=-db.part.parent_id,distinct=False)
+    print 'len ',len(rows)
+    return dict(rows=rows)
+
+def view_problems():
+    rows = db(db.segment.id>0).select()
+    return dict(rows=rows)
+
+def seggrid():
+    grid = SQLFORM.grid(db.segment)
+    return dict(grid=grid)
+
+def partgrid():
+    grid = SQLFORM.grid(db.part)
+    return dict(grid=grid)
+
 def compound_problem():
     form = SQLFORM(db.segment)
     return dict(form=form)

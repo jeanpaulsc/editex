@@ -1,0 +1,21 @@
+{{extend 'layout.html'}}
+<table>
+    {{for row in rows:}}
+        <tr>
+            <td>
+                {{=row.problem}}
+            </td>
+            <td>
+                <div class='wrapper'>
+                    {{if row.body:}}
+                        <p>
+                            {{=XML(row.body)}}
+                        </p>
+                    {{else:}}
+                        {{=IMG(_src=URL('download',args=row.image))}}
+                    {{pass}}
+                </div>
+            </td>
+        </tr>
+    {{pass}}
+</table>

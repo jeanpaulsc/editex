@@ -1,0 +1,72 @@
+{{extend 'layout.html'}}
+    <ul class="n">
+        {{for problem in rows:}}
+            <li>
+                <span>
+                    {{=problem.problem}}
+                </span>
+                <span>
+                    {{for part in db(db.part.problem==problem.problem).select():}}
+                        {{if part.body:}}
+                            <p>
+                                {{=XML(part.body)}}
+                            </p>
+                        {{else:}}
+                            {{=IMG(_src=URL('download',args=part.image))}}
+                        {{pass}}
+                    {{pass}}
+                    <ul class="n">
+                        {{for part in db(db.part.parent_id==problem.problem).select():}}
+                            <span>
+                                {{=part.problem}}
+                            </span>
+                            <span>
+                                {{if part.body:}}
+                                    <p>
+                                        {{=XML(part.body)}}
+                                    </p>
+                                {{else:}}
+                                    {{=IMG(_src=URL('download',args=part.image))}}
+                                {{pass}}
+                            </span>
+                        {{pass}}
+                    </ul>
+                </span>
+            </li>
+        {{pass}}
+    </ul>
+
+
+        <!- - ORDERED LIST - ->
+    <ol>
+        {{for problem in rows:}}
+            <li>
+                <span>
+                    {{for part in db(db.part.problem==problem.problem).select():}}
+                        {{if part.body:}}
+                            <p>
+                                {{=XML(part.body)}}
+                            </p>
+                        {{else:}}
+                            {{=IMG(_src=URL('download',args=part.image))}}<br>
+                        {{pass}}
+                    {{pass}}
+                    <ol class="a">
+                        {{for part in db(db.part.parent_id==problem.problem).select():}}
+                        <li>
+                            <span>
+                                {{if part.body:}}
+                                    <p>
+                                        {{=XML(part.body)}}
+                                    </p>
+                                {{else:}}
+                                    {{=IMG(_src=URL('download',args=part.image))}}<br>
+                                {{pass}}
+                            </span>
+                        </li>
+                        {{pass}}
+                    </ol>
+                </span>
+            </li>
+        {{pass}}
+    </ol>

@@ -1,0 +1,33 @@
+{{extend 'layout.html'}}
+    <ol>
+        {{for problem in rows:}}
+            <li>
+                <span>
+                    {{for part in db(db.part.problem==problem.problem).select():}}
+                        {{=part.problem}}&nbsp;{{if part.body:}}
+                            <p>
+                                {{=XML(part.body)}}
+                            </p>
+                        {{else:}}
+                            {{=IMG(_src=URL('download',args=part.image))}}<br>
+                        {{pass}}
+                    {{pass}}
+                    <ol class="a">
+                        {{for part in db(db.part.parent_id==problem.problem).select():}}
+                        <li>
+                            <span>
+                                {{if part.body:}}
+                                    <p>
+                                        {{=XML(part.body)}}
+                                    </p>
+                                {{else:}}
+                                    {{=IMG(_src=URL('download',args=part.image))}}<br>
+                                {{pass}}
+                            </span>
+                        </li>
+                        {{pass}}
+                    </ol>
+                </span>
+            </li>
+        {{pass}}
+    </ol>

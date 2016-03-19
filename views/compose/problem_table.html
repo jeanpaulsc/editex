@@ -1,0 +1,39 @@
+{{extend 'layout.html'}}
+    <table>
+        {{for problem in rows:}}
+            <tr>
+                <td>
+                    {{=problem.problem}}
+                </td>
+                <td>
+                    {{for part in db(db.part.problem==problem.problem).select():}}
+                        {{if part.body:}}
+                            <p>
+                                {{=XML(part.body)}}
+                            </p>
+                        {{else:}}
+                            {{=IMG(_src=URL('download',args=part.image))}}
+                        {{pass}}
+                    {{pass}}
+                    <table>
+                        {{for part in db(db.part.parent_id==problem.problem).select():}}
+                        <tr>
+                            <td>
+                                {{=part.problem}}
+                            </td>
+                            <td>
+                                {{if part.body:}}
+                                    <p>
+                                        {{=XML(part.body)}}
+                                    </p>
+                                {{else:}}
+                                    {{=IMG(_src=URL('download',args=part.image))}}
+                                {{pass}}
+                            </td>
+                        </tr>
+                        {{pass}}
+                    </table>
+                </td>
+            </tr>
+        {{pass}}
+    </table>
