@@ -1,4 +1,14 @@
 {{extend 'layout.html'}}
+<style>
+            button {
+    height: 1.5em;
+    vertival-align: middle;
+    padding: 0px 0px;
+}
+    button text {
+        padding: 0 0;
+    }
+</style>
     <ol type="1">
         {{for problem in rows:}}
             <li value="{{=problem.problem}}">
@@ -9,6 +19,9 @@
                             {{=IMG(_src=URL('download',args=part.image))}}<br>
                         {{pass}}
                     {{pass}}
+                        {{if part.auth_btn:}}
+                        <button>solve</button>
+                        {{pass}}
                     <ol class="a">
                         {{for part in db(db.part.parent_id==problem.problem).select():}}
                         <li>
@@ -21,6 +34,9 @@
                                     {{=IMG(_src=URL('download',args=part.image))}}<br>
                                 {{pass}}
                             </span>
+                        {{if part.auth_btn:}}
+                        <button>solve</button>
+                        {{pass}}
                         </li>
                         {{pass}}
                     </ol>

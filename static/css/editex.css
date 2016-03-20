@@ -20,5 +20,10 @@ ol.r {list-style-type: upper-roman;}
 ul.n {list-style-type: none;}
 ol.a {list-style-type: lower-alpha;}
 
-li {
+li:after {
+}
+button {
+    height: 1.5em;
+    vertival-align: middle;
+    padding: 0;
 }

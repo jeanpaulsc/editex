@@ -36,7 +36,9 @@ db.define_table('part',
                 Field('next_id','reference part',default=None),
                 Field('image','upload'),
                 Field('parent_id','reference segment',default=session.actseg),
-                Field('section_id',default=session.sid))
+                Field('section_id',default=session.sid),
+                Field('auth_btn',default=None),
+                Field('auth_id','integer',default=auth.user_id))
 
 db.define_table('activity',
                 Field('time_of',default=datetime.now()),
