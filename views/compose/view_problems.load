@@ -1,0 +1,80 @@
+{{extend 'layout.html'}}
+<div class="doc-col">
+    {{act_flag=0}}
+    <h2>{{=session.section.title}}</h2>
+    <ol type="1">
+        {{for problem in rows:}}
+            <li value="{{=problem.problem}}">
+                    {{for part in db(db.part.problem==problem.problem).select():}}
+                        {{if part.image:}}
+                            {{=IMG(_src=URL('download',args=part.image))}}
+                        {{else:}}
+                        <p>
+                                {{=XML(part.body)}}
+                        </p>
+                        {{pass}}
+                    {{pass}}
+                        {{if part.auth_btn:}}
+                        {{act_flag=True}}
+                        {{pass}}
+                    <ol class="a">
+                        {{for part in db(db.part.parent_id==problem.problem).select(orderby='part_id'):}}
+                        <li>
+                            <span>
+                                {{if part.body:}}
+                                    <p>
+                                        {{=XML(part.body)}}
+                                    </p>
+                                {{else:}}
+                                    {{=IMG(_src=URL('download',args=part.image))}}
+                                {{pass}}
+                            </span>
+                        {{if part.auth_btn:}}
+                        {{act_flag=True}} <!-- find appendages -->
+                        {{pass}}
+                        </li>
+                            {{print 'act_flag: ', act_flag}}
+                        {{if act_flag:}}
+                            <div id="s{{=part.section_id}}p{{=problem.problem}}{{=part.problem}}">
+                        {{for sub in db(db.part.parent_id==part.id).select():}}
+                            {{print 'in sub with part.id=',sub.id," & ", sub.body}}
+                            <span>
+                                {{if sub.body:}}
+                                    <p>
+                                        {{=XML(sub.body)}}
+                                    </p>
+                                {{else:}}
+                                    {{=IMG(_src=URL('download',args=sub.image))}}
+                                {{pass}}
+                            </span>
+
+                        {{pass}}
+
+                        {{if auth.has_membership('tutor'):}}
+       {{=A(XML('<button>correct</button>'),callback=URL('compose','correct',args=[part.section_id,problem.problem,
+       part.problem]),target='s'+part.section_id+'p'+problem.problem+part.problem)}}&nbsp;
+       {{=A(XML('<button>incorrect</button>'),callback=URL('compose','incorrect',args=[part.section_id,problem.problem,
+       part.problem]),target='s'+part.section_id+'p'+problem.problem+part.problem)}}&nbsp;
+       {{=A(XML('<button>comment</button>'),callback=URL('compose','append_txt.load',args=[part.section_id,problem.problem,
+       part.problem]),target='s'+part.section_id+'p'+problem.problem+part.problem)}}
+    {{elif auth.has_membership('student'):}}
+         {{=A(XML('<button>solve</button>'),callback=URL('compose','append_txt.load',args=part.id),target='s'+part.section_id+'p'+problem.problem+part.problem)}}
+    {{pass}}{{act_flag=False}}
+                       </div> {{pass}}
+                        {{pass}}
+                    </ol>
+            </li>{{if act_flag:}}<div id="s{{=part.section_id}}p{{=problem.problem}}{{=part.problem}}">
+                        {{if auth.has_membership('tutor'):}}
+       {{=A(XML('<button>correct</button>'),callback=URL('compose','correct',args=[part.section_id,problem.problem,
+       part.problem]),target='s'+part.section_id+'p'+problem.problem+part.problem)}}&nbsp;
+       {{=A(XML('<button>incorrect</button>'),callback=URL('compose','incorrect',args=[part.section_id,problem.problem,
+       part.problem]),target='s'+part.section_id+'p'+problem.problem+part.problem)}}&nbsp;
+       {{=A(XML('<button>comment</button>'),callback=URL('compose','append_txt.load',args=[part.section_id,problem.problem,
+       part.problem]),target='s'+part.section_id+'p'+problem.problem+part.problem)}}
+    {{elif auth.has_membership('student'):}}
+         {{=A(XML('<button>solve</button>'),callback=URL('compose','append_txt.load',args=part.id),target='s'+part.section_id+'p'+problem.problem+part.problem)}}
+    {{pass}}{{act_flag=False}}
+                       </div> {{pass}}
+        {{pass}}
+    </ol>
+</div>

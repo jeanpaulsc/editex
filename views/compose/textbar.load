@@ -1,0 +1,22 @@
+{{#extend 'layout.html'}}
+{{print "in textbar"}}
+<div id='textbar'>
+{{for row in rows:}}
+<button class='btn sym'>{{=row.chr}}</button>
+{{pass}}
+<button class='btn tex' style="width:7em;margin-left: 2px;">TeXediT</button>
+</div>
+
+{{block js}}
+   <script>
+$('.sym').button().on('click', function(event,ui){
+    //alert('click');
+    var textval = $(this).text();
+    $('#part_body').val($('#part_body').val() + textval);
+});
+$('.tex').button().on('click', function(event,ui){
+    alert('tex');
+    ajax('append_tex.load',target='textbar');
+});
+</script>
+{{end}}

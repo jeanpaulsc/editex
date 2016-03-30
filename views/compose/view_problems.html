@@ -1,27 +1,26 @@
 {{extend 'layout.html'}}
-<style>
-            button {
-    height: 1.5em;
-    vertival-align: middle;
-    padding: 0px 0px;
-}
-    button text {
-        padding: 0 0;
-    }
-</style>
+<div class="doc-col">
+    {{act_flag=0}}
+        {{sub=0}}
+    {{com=""}}
+    <h3>{{=session.section.title}}</h3>
     <ol type="1">
         {{for problem in rows:}}
             <li value="{{=problem.problem}}">
-                    {{for part in db(db.part.problem==problem.problem).select():}}
-                        {{if part.body:}}
-                                {{=XML(part.body)}}<br><br>
+                    {{for ppart in db(db.part.problem==problem.problem).select():}}
+                        {{if ppart.body:}}
+                        <p>
+                                {{=XML(ppart.body)}}
+                        </p>
                         {{else:}}
-                            {{=IMG(_src=URL('download',args=part.image))}}<br>
+                            {{=IMG(_src=URL('download',args=ppart.image))}}
                         {{pass}}
                     {{pass}}
-                    {{if problem.auth_btn:}}{{=auth_btn}}{{pass}}
+                        {{if ppart.auth_btn:}}
+                        {{act_flag=True}}
+                        {{pass}}
                     <ol class="a">
-                        {{for part in db(db.part.parent_id==problem.problem).select():}}
+                        {{for part in db(db.part.parent_num==problem.problem).select():}}
                         <li>
                             <span>
                                 {{if part.body:}}
@@ -29,13 +28,43 @@
                                         {{=XML(part.body)}}
                                     </p>
                                 {{else:}}
-                                    {{=IMG(_src=URL('download',args=part.image))}}<br>
+                                    {{=IMG(_src=URL('download',args=part.image))}}
                                 {{pass}}
                             </span>
+                        {{if part.auth_btn:}}
+                        {{act_flag=True}} <!-- find appendages -->
+                        {{pass}}
                         </li>
-                        {{if problem.auth_btn:}}{{=auth_btn}}{{pass}}
+                            {{print 'act_flag: ', act_flag}}
+                        {{if act_flag:}}
+                            <div id="s{{=part.section_id}}p{{=problem.problem}}{{=part.problem}}">
+                        {{for sub in db(db.part.parent==part.id).select():}}
+                            {{print 'in sub with part.id=',sub.id," & ", sub.body}}
+                            <span class="com">
+                                {{if sub.body:}}
+                                    <p>
+                                        {{=XML(sub.body)}}
+                                    </p>
+                                {{else:}}
+                                    {{=IMG(_src=URL('download',args=sub.image))}}
+                                {{pass}}
+                            </span>
+
+                        {{pass}}
+                                {{if sub:}}
+                            {{parid = sub.id}}
+                                {{else:}}
+                                {{parid = part.id}}
+                                {{pass}}
+
+                        {{include 'acttab.load'}}
+                       </div> {{pass}}
                         {{pass}}
                     </ol>
-            </li>
+            </li>{{if act_flag:}}<div id="s{{=ppart.section_id}}p{{=problem.problem}}{{=ppart.problem}}">
+        {{parid = ppart.id}}
+                        {{include 'pacttab.load'}}
+                       </div> {{pass}}
         {{pass}}
     </ol>
+</div>

@@ -1,0 +1,7 @@
+    {{if auth.has_membership('tutor'):}}
+       {{=A('<button>correct</button>',callback=URL('compose','correct'),ajax=True)}}&nbsp;
+       {{=A('<button>incorrect</button>',callback=URL('compose','incorrect'),ajax=True)}}&nbsp;
+       {{=A('<button>comment</button>',callback=URL('compose','append_txt'),ajax=True)}}
+    {{elif auth.has_membership('student'):}}
+         {{=A('<button>solve</button>',callback=URL('compose','append_txt'),ajax=True)}}
+    {{pass}}

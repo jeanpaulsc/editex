@@ -1,0 +1,10 @@
+ {{if auth.has_membership('tutor'):}}
+       {{=A(XML('<button>correct</button>'),callback=URL('compose','correct',args=[part.section_id,problem.problem,
+       part.problem]),target='s'+part.section_id+'p'+problem.problem+part.problem)}}&nbsp;
+       {{=A(XML('<button>incorrect</button>'),callback=URL('compose','incorrect',args=[part.section_id,problem.problem,
+       part.problem]),target='s'+part.section_id+'p'+problem.problem+part.problem)}}&nbsp;
+       {{=A(XML('<button>comment</button>'),callback=URL('compose','append_txt.load',args=[part.section_id,problem.problem,
+       part.problem]),target='s'+part.section_id+'p'+problem.problem+part.problem)}}
+    {{elif auth.has_membership('student'):}}
+         {{=A(XML('<button>solve</button>'),callback=URL('compose','append_txt.load',args=part.id),target='s'+part.section_id+'p'+problem.problem+part.problem)}}
+    {{pass}}

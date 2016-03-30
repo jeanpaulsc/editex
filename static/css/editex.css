@@ -1,6 +1,12 @@
 .doc-col {
+    display:block;
+    margin:0 auto;
     max-width: 740px;
     padding: 20px;
+    background: white;
+}
+.doc-col h3 {
+    text-align: center;
 }
 .doc-col img {
     margin-bottom: 20px;
@@ -22,8 +28,74 @@ ol.a {list-style-type: lower-alpha;}
 
 li:after {
 }
+.w2p_fw #part_body {
+    width: 95%;
+    height: 6em;
+}
 button {
-    height: 1.5em;
+    height: 1.2em;
     vertival-align: middle;
     padding: 0;
+    margin:0;
+}
+#textbar.btn {
+  background: #ebebeb;
+  background-image: -webkit-linear-gradient(top, #ebebeb, #d4d4d4);
+  background-image: -moz-linear-gradient(top, #ebebeb, #d4d4d4);
+  background-image: -ms-linear-gradient(top, #ebebeb, #d4d4d4);
+  background-image: -o-linear-gradient(top, #ebebeb, #d4d4d4);
+  background-image: linear-gradient(to bottom, #ebebeb, #d4d4d4);
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0px;
+  font-family: Arial;
+  color: #000000;
+  margin: -2px -1px;
+  width: 16px;
+  font-size: 14px;
+  padding: 0;
+  vertival-align: middle;
+  border: solid #b2b2b2 1px;
+  text-decoration: none;
+}
+
+#textbar.btn:hover {
+  background: #f7e8ac;
+  background-image: -webkit-linear-gradient(top, #f7e8ac, #f0e95b);
+  background-image: -moz-linear-gradient(top, #f7e8ac, #f0e95b);
+  background-image: -ms-linear-gradient(top, #f7e8ac, #f0e95b);
+  background-image: -o-linear-gradient(top, #f7e8ac, #f0e95b);
+  background-image: linear-gradient(to bottom, #f7e8ac, #f0e95b);
+  text-decoration: none;
+}
+body {
+    background: #f3f3f3;
+}
+
+.stu-com {
+    background: lightgoldenrodyellow;
+    padding: 4px;
+    text-style: bold;
+    border-top: 1px dotted grey;
+    border-left: 1px dotted grey;
+    border-radius: 5px;
+    margin-bottom: 2px;
+    margin-right: 10px;
+}
+
+.tut-com {
+    background: lightblue;
+    padding: 4px;
+    text-style: italic;
+    color: darkred;
+    border-top: 1px dotted grey;
+    border-left: 1px dotted grey;
+    border-radius: 5px;
+    margin-bottom: 2px;
+    margin-left: 10px;
+}
+
+.stu-com-draft:hover {
+    color: blue;
+    text-decoration: underline;
 }

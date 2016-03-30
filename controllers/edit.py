@@ -100,27 +100,16 @@ def txt():
         response.flash='failure to insert record'
     return dict(form=form.process())
 
-def segtex():
+def append_tex():
     session.seg_cat = 'tex'
-    if len(request.args)>0:
-        seg2edit = request.args(0,cast=int)
-        form=SQLFORM(db.segment,record=request.args(0,cast=int))
-    else:
-        seg2edit = 0
-        form=SQLFORM(db.segment)
-    try:
-        meta = db(db.meta.id==session.cur_meta_id).select().first()
-        segs = db(db.segment.meta_id==session.cur_meta_id).select()
-    except Exception, e:
-        response.flash="error: %s" % e
-        redirect('edit','index')
+    form=SQLFORM(db.segment)
     if form.process().accepted:
         print "TeX form accepted"
-        redirect(URL('edit','segments'))
+        redirect(URL('compose','view_problems'))
     else:
         print 'error'
         response.flash='failure to insert record'
-    return dict(form=form,meta=meta,segs=segs,seg2edit=seg2edit)
+    return dict(form=form)
 
 def segtxt():
     session.seg_cat = 'txt'

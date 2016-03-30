@@ -1,0 +1,48 @@
+{{if auth.has_membership('tutor'):}}
+<div class='tut-com'>
+  {{for com in db((db.part.parent_id==parid)&((db.part.terminal==True)|(db.part.auth_id==auth.user_id))).select():}}
+
+                            <span>
+                                {{if com.body:}}
+                                    <p>
+                                        {{=XML(com.body)}}
+                                    </p>
+                                {{else:}}
+                                    {{=IMG(_src=URL('download',args=com.image))}}
+                                {{pass}}
+                            </span>
+{{parid=com.id}}
+{{pass}}
+</div>
+       {{=A(XML('<button>correct</button>'),callback=URL('compose','correct',args=[ppart.section_id,problem.problem,
+       ppart.problem]),target='s'+ppart.section_id+'p'+problem.problem+ppart.problem)}}&nbsp;
+       {{=A(XML('<button>incorrect</button>'),callback=URL('compose','incorrect',args=[ppart.section_id,problem.problem,
+       ppart.problem]),target='s'+ppart.section_id+'p'+problem.problem+ppart.problem)}}&nbsp;
+       {{=A(XML('<button>comment</button>'),callback=URL('compose','append_txt.load',args=[ppart.section_id,problem.problem,
+       ppart.problem]),target='s'+ppart.section_id+'p'+problem.problem+ppart.problem)}}
+    {{elif auth.has_membership('student'):}}
+    <div class='stu-com'>
+    {{coms = db(db.part.parent==parid).select()}}
+    {{if len(coms)>0:}}
+       {{for com in coms:}}
+
+                            <span class="stu-com-draft" id="{{=com.id}}">
+                                {{if com.body:}}
+                                    <p>
+                                        {{=XML(com.body)}}
+                                    </p>
+                                {{else:}}
+                                    {{=IMG(_src=URL('download',args=com.image))}}
+                                {{pass}}
+                            </span>
+                            <script>
+
+                            </script>
+              {{parid=com.id}}
+         {{pass}}
+       </div>
+         {{=A(XML('<button>commit</button>'),callback=URL('compose','commit_parts',args=com.parent),target='s'+ppart.section_id+'p'+problem.problem+ppart.problem)}}
+    {{else:}}
+         {{=A(XML('<button>solve</button>'),callback=URL('compose','append_txt.load',args=ppart.id),target='s'+ppart.section_id+'p'+problem.problem+ppart.problem)}}
+    {{pass}}
+    {{pass}}{{act_flag=False}}

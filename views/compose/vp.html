@@ -1,26 +1,20 @@
 {{extend 'layout.html'}}
-<style>
-            button {
-    height: 1.5em;
-    vertival-align: middle;
-    padding: 0px 0px;
-}
-    button text {
-        padding: 0 0;
-    }
-</style>
+<div class="doc-col">
+    <h2>{{=session.section.title}}</h2>
     <ol type="1">
         {{for problem in rows:}}
             <li value="{{=problem.problem}}">
                     {{for part in db(db.part.problem==problem.problem).select():}}
                         {{if part.body:}}
-                                {{=XML(part.body)}}<br><br>
+                        <p>
+                                {{=XML(part.body)}}
+                        </p>
                         {{else:}}
-                            {{=IMG(_src=URL('download',args=part.image))}}<br>
+                            {{=IMG(_src=URL('download',args=part.image))}}
                         {{pass}}
                     {{pass}}
                         {{if part.auth_btn:}}
-                        <button>solve</button>
+                        {{act_flag=True}}
                         {{pass}}
                     <ol class="a">
                         {{for part in db(db.part.parent_id==problem.problem).select():}}
@@ -31,15 +25,39 @@
                                         {{=XML(part.body)}}
                                     </p>
                                 {{else:}}
-                                    {{=IMG(_src=URL('download',args=part.image))}}<br>
+                                    {{=IMG(_src=URL('download',args=part.image))}}
                                 {{pass}}
                             </span>
                         {{if part.auth_btn:}}
-                        <button>solve</button>
+                        {{act_flag=True}}
                         {{pass}}
                         </li>
+                        {{if act_flag:}}
+                        {{if auth.has_membership('tutor'):}}
+       {{=A(XML('<button>correct</button>'),callback=URL('compose','correct',args=[part.section_id,part.parent_id,
+       part.problem]))}}&nbsp;
+       {{=A(XML('<button>incorrect</button>'),callback=URL('compose','incorrect',args=[part.section_id,part.parent_id,
+       part.problem]))}}&nbsp;
+       {{=A(XML('<button>comment</button>'),callback=URL('compose','append_txt'))}}
+    {{elif auth.has_membership('student'):}}
+         {{=A(XML('<button>solve</button>'),callback=URL('compose','append_txt',args=[part.section_id,part.parent_id,
+       part.problem]),ajax=True)}}
+    {{pass}}{{act_flag=False}}
+                        {{pass}}
                         {{pass}}
                     </ol>
-            </li>
+            </li>{{if act_flag:}}
+                        {{if auth.has_membership('tutor'):}}
+       {{=A(XML('<button>correct</button>'),callback=URL('compose','correct',args=[part.section_id,part.parent_id,
+       part.problem]))}}&nbsp;
+       {{=A(XML('<button>incorrect</button>'),callback=URL('compose','incorrect',args=[part.section_id,part.parent_id,
+       part.problem]))}}&nbsp;
+       {{=A(XML('<button>comment</button>'),callback=URL('compose','append_txt'))}}
+    {{elif auth.has_membership('student'):}}
+         {{=A(XML('<button>solve</button>'),callback=URL('compose','append_txt',args=[part.section_id,part.parent_id,
+       part.problem]),ajax=True)}}
+    {{pass}}{{act_flag=False}}
+                        {{pass}}
         {{pass}}
     </ol>
+</div>

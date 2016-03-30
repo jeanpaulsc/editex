@@ -1,0 +1,14 @@
+{{extend 'layout.html'}}
+{{print "in texbar"}}
+<div class='textbar'>
+{{for row in rows:}}
+<button class='btn' value={{=XML(row.chr)}}>{{=XML(row.chr)}}</button>
+{{pass}}
+</div>
+
+   <script>
+$('.btn').button().on('click', function(event,ui){
+    $('#part_body').append(this.value());
+    alert('click');
+});
+</script>

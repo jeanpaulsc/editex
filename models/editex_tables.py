@@ -7,38 +7,26 @@ if not session.active_section:
     session.active_sid = ''
     session.active_section = ''
 
+
 db.define_table('sect',
-                Field('sid'),
+                Field('section_id',default=session.active_sid,requires=IS_NOT_EMPTY),
                 Field('title','string'),
                 Field('auth_id','integer',default=auth.user_id))
 
-db.define_table('segment',
-                Field('section_id',default=session.pid),
-                Field('problem',default=session.pnum),
-                Field('comp_id'),
-                Field('body','text'),
-                Field('category','string',default='txt'),
-                Field('parent_id',default=session.pid),
-                Field('image','upload'),
-                Field('status',default='draft'),
-                Field('auth_id',default=auth.user_id),
-	            Field('time_of',default=datetime.now()),
-                Field('has_solution','boolean'),
-                Field('request_help','boolean'),
-                Field('terminal','boolean'))
-
-""" COMPOUND toi function as linked list for loading """
+""" COMPOUND to function as linked list for loading """
 
 db.define_table('part',
                 Field('problem',default=session.pnum),
-                Field('body','text'),
+                Field('body'), #,requires=IS_NOT_EMPTY),   # should be segment or the word 'image'
                 Field('category','string',default='txt'),
-                Field('next_id','reference part',default=None),
+                Field('part_id',default=session.part),
                 Field('image','upload'),
-                Field('parent_id','reference segment',default=session.actseg),
-                Field('section_id',default=session.sid),
+                Field('parent_num',default=session.pnum),
+                Field('parent','reference part',default=None),
+                Field('section_id',default=session.section.sid),
                 Field('auth_btn',default=None),
-                Field('auth_id','integer',default=auth.user_id))
+                Field('auth_id','integer',default=auth.user_id),
+	            Field('time_of',default=datetime.now()))
 
 db.define_table('activity',
                 Field('time_of',default=datetime.now()),
@@ -46,12 +34,18 @@ db.define_table('activity',
                 Field('segment_id',default=session.pid),
                 Field('subject','string'))
 
-db.segment.id.readable=db.segment.id.writable=False
-db.segment.category.readable=db.segment.category.writable=False
-db.segment.parent_id.readable=db.segment.parent_id.writable=False
-db.segment.status.readable=db.segment.status.writable=False
-db.segment.auth_id.readable=db.segment.auth_id.writable=False
-db.segment.time_of.readable=db.segment.time_of.writable=False
+db.define_table('symchar',
+                Field('grp'),
+                Field('act','boolean'),
+                Field('alt'),
+                Field('chr'),
+                Field('func'))
+
+db.part.id.readable=db.part.id.writable=False
+db.part.category.readable=db.part.category.writable=False
+db.part.parent.readable=db.part.parent.writable=False
+db.part.auth_id.readable=db.part.auth_id.writable=False
+db.part.time_of.readable=db.part.time_of.writable=False
 db.activity.time_of.readable=db.activity.time_of.writable=False
 db.activity.time_of.readable=db.activity.time_of.writable=False
 db.activity.segment_id.readable=db.activity.segment_id.writable=False

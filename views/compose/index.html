@@ -2,6 +2,6 @@
 {{=H2('Available Sections:')}}
         <ol class="r">
 {{for row in rows:}}
-       <li>     {{=A(XML(row.title),_href=URL('compose','problem_index',args=row.sid))}}</li>
+       <li>     {{=A(XML(row.title),_href=URL('compose','view_problems',args=row.section_id))}}</li>
         {{pass}}
             </ol>
